@@ -3,223 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mickael | AppSec & Pentester Portfolio</title>
+    <title>Mickael | Portfolio & Blog</title>
     <style>
-        /* Base Themes & Colors */
+        /* Color Themes based on Minimal Security Portfolio styles */
         :root {
-            --bg-color: #0d1117;       /* Dark GitHub style background */
-            --sidebar-color: #161b22;  /* Slightly lighter dark for sidebar */
-            --accent-color: #238636;   /* Green block color for active modules (Change this hex to change color!) */
-            --text-main: #c9d1d9;      /* Clear readable text */
-            --text-muted: #8b949e;
-            --border-color: #30363d;
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent-link: #0070f3; /* Premium blue accent */
+            --border-line: #eaeaea;
+            --card-bg: #fafafa;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0b0f17;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent-link: #38bdf8; /* Sharp sky blue for dark mode */
+            --border-line: #22252a;
+            --card-bg: #131822;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Left Sidebar Layout */
-        .sidebar {
-            width: 280px;
-            background-color: var(--sidebar-color);
-            border-right: 1px solid var(--border-color);
+        /* Responsive Layout Container */
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            gap: 80px;
+        }
+
+        /* LEFT NAVIGATION COLUMN (Stays fixed/sticky) */
+        .left-column {
+            width: 220px;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            padding: 24px;
         }
 
-        .profile-header {
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
+        .identity {
+            margin-bottom: 40px;
         }
 
-        .profile-header h1 {
-            font-size: 1.4rem;
-            color: #fff;
+        .identity h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
             margin-bottom: 4px;
         }
 
-        .profile-header p {
-            font-size: 0.85rem;
+        .identity p {
+            font-size: 0.9rem;
             color: var(--text-muted);
-            font-weight: 500;
         }
 
-        /* Sidebar Navigation Modules */
-        .nav-modules {
+        .nav-links {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            list-style: none;
+            gap: 16px;
         }
 
-        .module-btn {
-            width: 100%;
-            padding: 14px 18px;
-            background-color: #21262d;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-main);
-            text-align: left;
+        .nav-tab {
+            background: none;
+            border: none;
+            color: var(--text-muted);
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 500;
+            text-align: left;
             cursor: pointer;
-            transition: all 0.2s ease;
+            padding: 4px 0;
+            transition: color 0.2s ease;
+            width: fit-content;
         }
 
-        .module-btn:hover {
-            background-color: #30363d;
-            border-color: var(--text-muted);
+        .nav-tab:hover {
+            color: var(--text-main);
         }
 
-        /* Active Module Styling (The colored block you chose) */
-        .module-btn.active {
-            background-color: var(--accent-color);
-            color: #ffffff;
-            border-color: var(--accent-color);
-            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3);
+        /* Active link indicator similar to premium minimal sites */
+        .nav-tab.active {
+            color: var(--text-main);
+            font-weight: 700;
+            border-bottom: 2px solid var(--text-main);
         }
 
-        /* Right Content Area Layout */
-        .content-area {
+        /* RIGHT CONTENT AREA */
+        .right-column {
             flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-            background-color: var(--bg-color);
+            max-width: 700px;
         }
 
         .tab-content {
-            display: none; /* Hidden by default */
-            max-width: 800px;
-            animation: fadeIn 0.3s ease;
+            display: none; /* Hidden unless active */
+            animation: fadeIn 0.4s ease;
         }
 
         .tab-content.active {
-            display: block; /* Show active tab */
+            display: block;
         }
 
-        /* Content Styling */
+        /* Typography & Components inside tabs */
         h2 {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.3px;
         }
 
         p {
-            line-height: 1.6;
-            margin-bottom: 16px;
-            color: #e6edf3;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: var(--text-main);
         }
 
-        .card {
-            background: #161b22;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 16px;
+        .post-item, .cert-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-line);
         }
 
-        .card h3 {
-            color: #58a6ff;
-            margin-bottom: 8px;
+        .post-item:last-child, .cert-item:last-child {
+            border-bottom: none;
         }
 
+        .item-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .item-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 6px;
+            transition: color 0.2s;
+        }
+
+        .item-title:hover {
+            color: var(--accent-link);
+        }
+
+        .contact-link {
+            color: var(--accent-link);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* FLOATING THEME TOGGLE BUTTON */
+        .theme-toggle {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-line);
+            color: var(--text-main);
+            padding: 10px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive design for smaller screens/phones */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 40px 24px;
+                gap: 40px;
+            }
+            .left-column {
+                width: 100%;
+            }
+            .nav-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .theme-toggle {
+                bottom: 24px;
+                left: 24px;
+            }
         }
     </style>
 </head>
-<body>
+<body data-theme="dark"> <!-- Defaulted to dark mode because it looks incredibly clean -->
 
-    <!-- LEFT SIDEBAR -->
-    <div class="sidebar">
-        <div class="profile-header">
-            <h1>Mickael</h1>
-            <p>AppSec & Penetration Tester</p>
+    <div class="container">
+        
+        <!-- LEFT-HAND NAVIGATION COLUMN -->
+        <div class="left-column">
+            <div class="identity">
+                <h1>Mickael</h1>
+                <p>AppSec & Pentester</p>
+            </div>
+            
+            <ul class="nav-links">
+                <li><button class="nav-tab active" onclick="switchTab(event, 'home')">Home</button></li>
+                <li><button class="nav-tab" onclick="switchTab(event, 'about')">About Me</button></li>
+                <li><button class="nav-tab" onclick="switchTab(event, 'blog')">Blog</button></li>
+                <li><button class="nav-tab" onclick="switchTab(event, 'certificates')">Certificates</button></li>
+                <li><button class="nav-tab" onclick="switchTab(event, 'contact')">Contact</button></li>
+            </ul>
         </div>
 
-        <ul class="nav-modules">
-            <li><button class="module-btn active" onclick="switchTab(event, 'who-am-i')">Who am I?</button></li>
-            <li><button class="module-btn" onclick="switchTab(event, 'projects')">Projects</button></li>
-            <li><button class="module-btn" onclick="switchTab(event, 'attacks')">Attacks</button></li>
-            <li><button class="module-btn" onclick="switchTab(event, 'learning')">Learning</button></li>
-        </ul>
+        <!-- RIGHT-HAND CONTENT WINDOW -->
+        <div class="right-column">
+
+            <!-- TAB: HOME -->
+            <div id="home" class="tab-content active">
+                <h2>Hello.</h2>
+                <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
+                <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
+            </div>
+
+            <!-- TAB: ABOUT ME -->
+            <div id="about" class="tab-content">
+                <h2>About Me</h2>
+                <p>I focus on bridge engineering between offensive exploitation and secure development lifecycles. My core operational environments include comprehensive Linux deployment mapping, web vulnerability evaluation, and Active Directory lab modeling.</p>
+                <p>I spend my research blocks diving deep into logic bypass vectors and documenting structural remediation methodologies for development teams.</p>
+            </div>
+
+            <!-- TAB: BLOG (Attacks / Write-ups) -->
+            <div id="blog" class="tab-content">
+                <h2>Blog & Research</h2>
+                
+                <div class="post-item">
+                    <div class="item-meta">May 2026 • Infrastructure</div>
+                    <a href="#" class="item-title">Simulating Enterprise Path Escalations in AD Labs</a>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 4px;">A architectural walkthrough on configuring internal constraints to evaluate NTLM security states.</p>
+                </div>
+
+                <div class="post-item">
+                    <div class="item-meta">March 2026 • AppSec</div>
+                    <a href="#" class="item-title">Breaking Logic: Parameter Discrepancies in Production Apps</a>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 4px;">An analysis of backend parameter parsing vulnerabilities and how validation checks fail under stress.</p>
+                </div>
+            </div>
+
+            <!-- TAB: CERTIFICATES -->
+            <div id="certificates" class="tab-content">
+                <h2>Certificates & Verifications</h2>
+                
+                <div class="cert-item">
+                    <div class="item-meta">Offensive Security</div>
+                    <div class="item-title">OSCP — Offensive Security Certified Professional</div>
+                </div>
+
+                <div class="cert-item">
+                    <div class="item-meta">Application Security</div>
+                    <div class="item-title">Certified AppSec Practitioner</div>
+                </div>
+            </div>
+
+            <!-- TAB: CONTACT -->
+            <div id="contact" class="tab-content">
+                <h2>Contact</h2>
+                <p>If you're looking to discuss security engineering, threat assessments, or professional opportunities, reach out via the channels below:</p>
+                <p>📧 Email: <a href="mailto:your.email@example.com" class="contact-link">your.email@example.com</a></p>
+                <p>💼 LinkedIn: <a href="https://linkedin.com" target="_blank" class="contact-link">linkedin.com/in/username</a></p>
+                <p>🛠️ GitHub: <a href="https://github.com/Mick19j" target="_blank" class="contact-link">github.com/Mick19j</a></p>
+            </div>
+
+        </div>
     </div>
 
-    <!-- RIGHT CONTENT WINDOW -->
-    <div class="content-area">
+    <!-- FLOATING THEME TOGGLE BUTTON -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌓 <span id="theme-text">Light Mode</span>
+    </button>
 
-        <!-- TAB: WHO AM I -->
-        <div id="who-am-i" class="tab-content active">
-            <h2>Who am I?</h2>
-            <p>Welcome to my professional space. I am an offensive security professional specializing in Application Security (AppSec) and penetration testing.</p>
-            <p>I combine defensive architecture logic with offensive testing paradigms to ensure systems are secure against modern threat models, focusing heavily on Linux systems, Active Directory design, and web infrastructure flaws.</p>
-        </div>
-
-        <!-- TAB: PROJECTS -->
-        <div id="projects" class="tab-content">
-            <h2>Projects</h2>
-            <div class="card">
-                <h3>Active Directory Enterprise Lab</h3>
-                <p>Designed and provisioned a multi-forest enterprise lab locally to simulate complex network components and defensive posture auditing tools.</p>
-            </div>
-            <div class="card">
-                <h3>Linux Security Hardening Script</h3>
-                <p>An automated script engineered to parse system states and apply strict configuration guidelines on remote servers.</p>
-            </div>
-        </div>
-
-        <!-- TAB: ATTACKS -->
-        <div id="attacks" class="tab-content">
-            <h2>Attacks & Exploits</h2>
-            <div class="card">
-                <h3>Infrastructure & AD Compromise Walkthrough</h3>
-                <p>Anonymized documentation demonstrating privilege escalation vectors and credential harvesting logic within lab environments.</p>
-            </div>
-            <div class="card">
-                <h3>Web Application Logical Flaws</h3>
-                <p>Analysis of critical flaws found during assessments, emphasizing source code level root-cause and remediation techniques.</p>
-            </div>
-        </div>
-
-        <!-- TAB: LEARNING -->
-        <div id="learning" class="tab-content">
-            <h2>Learning & Research Track</h2>
-            <p>Currently researching advanced exploitation tracking, specialized source code parsing frameworks, and modern detection engineering matrices.</p>
-        </div>
-
-    </div>
-
-    <!-- TAB SWITCHING ENGINE -->
+    <!-- ENGINE FOR TAB SWITCHING & THEME TOGGLING -->
     <script>
+        // Tab Engine
         function switchTab(event, tabId) {
-            // Remove active status from all button modules
-            const buttons = document.querySelectorAll('.module-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
 
-            // Hide all content blocks
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // Add active status to clicked module and show its content
             event.currentTarget.classList.add('active');
             document.getElementById(tabId).classList.add('active');
+            
+            // Auto scroll to top of content on mobile devices
+            if (window.innerWidth <= 768) {
+                document.getElementById(tabId).scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Theme Engine
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const themeText = document.getElementById('theme-text');
+            
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeText.textContent = 'Dark Mode';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeText.textContent = 'Light Mode';
+            }
         }
     </script>
 
