@@ -10,18 +10,24 @@
             --bg-color: #ffffff;
             --text-main: #111111;
             --text-muted: #666666;
-            --accent-link: #0070f3; /* Premium blue accent */
+            --accent-link: #4f46e5; /* Indigo-600 */
             --border-line: #eaeaea;
             --card-bg: #fafafa;
+            --btn-bg: #4f46e5;
+            --btn-text: #ffffff;
+            --btn-border: #4f46e5;
         }
 
         [data-theme="dark"] {
             --bg-color: #0b0f17;
             --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
-            --accent-link: #38bdf8; /* Sharp sky blue for dark mode */
+            --accent-link: #818cf8; /* Lighter indigo for dark mode */
             --border-line: #22252a;
             --card-bg: #131822;
+            --btn-bg: #6366f1; /* Indigo-500 for better visibility in dark mode */
+            --btn-text: #ffffff;
+            --btn-border: #6366f1;
         }
 
         * {
@@ -97,7 +103,7 @@
             color: var(--text-main);
         }
 
-        /* Active link indicator similar to premium minimal sites */
+        /* Active link indicator */
         .nav-tab.active {
             color: var(--text-main);
             font-weight: 700;
@@ -135,7 +141,7 @@
         }
 
         .post-item, .cert-item {
-            padding: 20px 0;
+            padding: 24px 0;
             border-bottom: 1px solid var(--border-line);
         }
 
@@ -169,11 +175,54 @@
             font-weight: 500;
         }
 
-        /* FLOATING THEME TOGGLE BUTTON */
+        /* CUSTOM HAND-STYLED HOVER BUTTONS */
+        .btn-solid, .btn-outline {
+            display: inline-block;
+            border-radius: 2px; /* rounded-sm */
+            padding: 12px 32px; /* px-8 py-3 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        /* Solid Style Button */
+        .btn-solid {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid var(--btn-border);
+        }
+
+        .btn-solid:hover {
+            transform: scale(1.1); /* hover:scale-110 */
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4); /* hover:shadow-xl */
+        }
+
+        /* Outline Style Button */
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent-link);
+            border: 1px solid currentColor; /* border-current */
+        }
+
+        .btn-outline:hover {
+            transform: scale(1.1); /* hover:scale-110 */
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2); /* hover:shadow-xl */
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        /* FLOATING THEME TOGGLE BUTTON (MOVED TO RIGHT) */
         .theme-toggle {
             position: fixed;
             bottom: 40px;
-            left: 40px;
+            right: 40px; /* Moved to right side */
             background-color: var(--card-bg);
             border: 1px solid var(--border-line);
             color: var(--text-main);
@@ -187,6 +236,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            z-index: 1000;
         }
 
         .theme-toggle:hover {
@@ -216,12 +266,12 @@
             }
             .theme-toggle {
                 bottom: 24px;
-                left: 24px;
+                right: 24px;
             }
         }
     </style>
 </head>
-<body data-theme="dark"> <!-- Defaulted to dark mode because it looks incredibly clean -->
+<body data-theme="light"> <!-- Set to Light Mode initially -->
 
     <div class="container">
         
@@ -258,14 +308,14 @@
                 <p>I spend my research blocks diving deep into logic bypass vectors and documenting structural remediation methodologies for development teams.</p>
             </div>
 
-            <!-- TAB: BLOG (Attacks / Write-ups) -->
+            <!-- TAB: BLOG -->
             <div id="blog" class="tab-content">
                 <h2>Blog & Research</h2>
                 
                 <div class="post-item">
                     <div class="item-meta">May 2026 • Infrastructure</div>
                     <a href="#" class="item-title">Simulating Enterprise Path Escalations in AD Labs</a>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 4px;">A architectural walkthrough on configuring internal constraints to evaluate NTLM security states.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 4px;">An architectural walkthrough on configuring internal constraints to evaluate NTLM security states.</p>
                 </div>
 
                 <div class="post-item">
@@ -282,21 +332,32 @@
                 <div class="cert-item">
                     <div class="item-meta">Offensive Security</div>
                     <div class="item-title">OSCP — Offensive Security Certified Professional</div>
+                    <div>
+                        <!-- Embedded Solid Button Style -->
+                        <a class="btn-solid" href="#" onclick="alert('Link your certificate verification PDF or URL here!')">Verify OSCP</a>
+                    </div>
                 </div>
 
                 <div class="cert-item">
                     <div class="item-meta">Application Security</div>
                     <div class="item-title">Certified AppSec Practitioner</div>
+                    <div>
+                        <!-- Embedded Outline Button Style -->
+                        <a class="btn-outline" href="#" onclick="alert('Link your certificate verification PDF or URL here!')">View Badge</a>
+                    </div>
                 </div>
             </div>
 
             <!-- TAB: CONTACT -->
             <div id="contact" class="tab-content">
                 <h2>Contact</h2>
-                <p>If you're looking to discuss security engineering, threat assessments, or professional opportunities, reach out via the channels below:</p>
-                <p>📧 Email: <a href="mailto:your.email@example.com" class="contact-link">your.email@example.com</a></p>
-                <p>💼 LinkedIn: <a href="https://linkedin.com" target="_blank" class="contact-link">linkedin.com/in/username</a></p>
-                <p>🛠️ GitHub: <a href="https://github.com/Mick19j" target="_blank" class="contact-link">github.com/Mick19j</a></p>
+                <p>If you're looking to discuss security engineering, threat assessments, or professional opportunities, feel free to download my resume or drop me an email:</p>
+                
+                <div class="button-group">
+                    <!-- Integrated your requested button examples here -->
+                    <a class="btn-solid" href="mailto:your.email@example.com">Email Me</a>
+                    <a class="btn-outline" href="#">Download CV</a>
+                </div>
             </div>
 
         </div>
@@ -304,7 +365,7 @@
 
     <!-- FLOATING THEME TOGGLE BUTTON -->
     <button class="theme-toggle" onclick="toggleTheme()">
-        🌓 <span id="theme-text">Light Mode</span>
+        🌓 <span id="theme-text">Dark Mode</span>
     </button>
 
     <!-- ENGINE FOR TAB SWITCHING & THEME TOGGLING -->
@@ -320,7 +381,6 @@
             event.currentTarget.classList.add('active');
             document.getElementById(tabId).classList.add('active');
             
-            // Auto scroll to top of content on mobile devices
             if (window.innerWidth <= 768) {
                 document.getElementById(tabId).scrollIntoView({ behavior: 'smooth' });
             }
