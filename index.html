@@ -97,6 +97,7 @@
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
+            z-index: 10;
         }
 
         .nav-links {
@@ -106,14 +107,14 @@
             gap: 14px;
         }
 
-        /* RE-ENGINEERED COMPONENT STYLE INTERACTIVE BUTTONS (Matching your markup logic) */
+        /* RE-ENGINEERED COMPONENT STYLE INTERACTIVE BUTTONS */
         .nav-btn-solid, .nav-btn-outline {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            border-radius: 8px; /* rounded-lg */
-            padding: 12px 20px; /* px-5 py-3 */
+            border-radius: 8px; 
+            padding: 12px 20px; 
             text-decoration: none;
             cursor: pointer;
             width: 100%;
@@ -127,7 +128,7 @@
         }
 
         .nav-btn-solid span {
-            font-weight: 500; /* font-medium */
+            font-weight: 500; 
             color: var(--btn-solid-text);
             transition: color 0.2s;
         }
@@ -147,7 +148,7 @@
         }
 
         .nav-btn-outline span {
-            font-weight: 500; /* font-medium */
+            font-weight: 500; 
             color: var(--btn-outline-text);
             transition: color 0.2s;
         }
@@ -160,21 +161,29 @@
             color: var(--btn-solid-text);
         }
 
-        /* 3. CENTERED CONTENT FRAME (Aligned exactly down from the header midline) */
+        /* 3. CENTERED CONTENT FRAME (Forced to global absolute page center) */
         .right-content-frame {
             flex: 1;
             padding: 60px;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Vertical center alignment */
-            align-items: center;      /* Horizontal center alignment */
+            justify-content: center; 
+            align-items: center;      
             position: relative;
         }
 
-        .flowing-text {
+        /* Inner container that aligns mathematically with the header text absolute middle */
+        .center-axis-container {
             max-width: 600px;
             width: 100%;
-            text-align: center; /* Centers text block elements directly in the middle */
+            text-align: center;
+            /* Negative margin offsets the left dock to achieve total viewport symmetry */
+            margin-left: -260px; 
+            z-index: 5;
+        }
+
+        .flowing-text {
+            width: 100%;
         }
 
         .flowing-text.hidden-state {
@@ -196,23 +205,48 @@
             margin-bottom: 20px;
         }
 
-        /* FLOATING THEME TOGGLE */
-        .theme-toggle {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background-color: var(--bg-color);
-            border: 2px solid var(--border-line);
-            color: var(--text-main);
-            padding: 10px 14px;
-            border-radius: 4px;
+        /* THEME TOGGLE WRAPPER PANEL */
+        .toggle-panel {
+            padding: 24px;
+            margin-top: auto; /* Pushes theme toggle to the bottom of the navigation dock */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Original customized theme button layouts */
+        .theme-btn-solid, .theme-btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-decoration: none;
             cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-            z-index: 1000;
+            width: 100%;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+
+        .theme-btn-solid {
+            border: 1px solid var(--border-line);
+            background-color: var(--btn-solid-bg);
+            color: var(--btn-solid-text);
+        }
+        .theme-btn-solid:hover {
+            background-color: transparent;
+            color: var(--text-main);
+        }
+
+        .theme-btn-outline {
+            border: 1px solid var(--border-line);
+            background-color: transparent;
+            color: var(--btn-outline-text);
+        }
+        .theme-btn-outline:hover {
+            background-color: var(--btn-solid-bg);
+            color: var(--btn-solid-text);
         }
 
         /* --- MATRIX OVERLAY --- */
@@ -272,20 +306,10 @@
             animation: matrix-pulse 1.5s infinite;
         }
 
-        /* MATRIX ACTIONS */
         @keyframes matrix-fall {
-            0% {
-                transform: translateY(-40px) rotateX(90deg);
-                opacity: 0;
-            }
-            20%, 80% {
-                transform: translateY(0) rotateX(0deg);
-                opacity: 0.9;
-            }
-            100% {
-                transform: translateY(40px) rotateX(-90deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-40px) rotateX(90deg); opacity: 0; }
+            20%, 80% { transform: translateY(0) rotateX(0deg); opacity: 0.9; }
+            100% { transform: translateY(40px) rotateX(-90deg); opacity: 0; }
         }
 
         @keyframes matrix-flicker {
@@ -304,6 +328,9 @@
                 width: 100%;
                 border-right: none;
                 border-bottom: 2px solid var(--border-line);
+            }
+            .center-axis-container {
+                margin-left: 0; /* Remove offset on mobile view stacks */
             }
         }
     </style>
@@ -348,6 +375,13 @@
                     </a>
                 </li>
             </ul>
+
+            <!-- THEME CHOOSER BUTTON SECTION -->
+            <div class="toggle-panel">
+                <button id="themeToggleBtn" class="theme-btn-outline" onclick="toggleTheme()">
+                    Dark Mode
+                </button>
+            </div>
         </nav>
 
         <!-- 3. MAIN CONTENT WINDOW AREA -->
@@ -368,25 +402,20 @@
                 </div>
             </div>
 
-            <!-- VIEWPORT CONTENT TEXT WINDOW (Centered aligned relative to top heading) -->
-            <div class="flowing-text" id="mainDisplay">
-                <h2>Hello.</h2>
-                <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
-                <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
+            <!-- VIEWPORT CONTENT TEXT WINDOW (Centered absolute alignment) -->
+            <div class="center-axis-container">
+                <div class="flowing-text" id="mainDisplay">
+                    <h2>Hello.</h2>
+                    <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
+                    <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
+                </div>
             </div>
 
         </main>
 
     </div>
 
-    <!-- FLOATING THEME TOGGLE BUTTON -->
-    <button class="theme-toggle" onclick="toggleTheme()">
-        <!-- Stark text based toggle to match the B&W look -->
-        <span id="theme-text">Dark Mode</span>
-    </button>
-
     <script>
-        // Cleanly clears animation status and resets text view
         function resetHomeView(event) {
             event.preventDefault();
             const textFrame = document.getElementById('mainDisplay');
@@ -396,40 +425,36 @@
             textFrame.classList.remove('hidden-state');
         }
 
-        // The Matrix Routing Execution Engine
         function runMatrixRoute(event, targetUrl) {
             event.preventDefault();
-            
             const textFrame = document.getElementById('mainDisplay');
             const loaderStage = document.getElementById('matrixStage');
             
-            // Clean active classes to clear previous event tracks
             loaderStage.classList.remove('active-loader');
             textFrame.classList.remove('hidden-state');
-            textFrame.offsetHeight; // layout clear reflow trigger
+            textFrame.offsetHeight; 
             
-            // Apply hide transformations and trigger green grid stream loader
             textFrame.classList.add('hidden-state');
             loaderStage.classList.add('active-loader');
             
-            // Transition out to standalone modular page 
             setTimeout(() => {
                 window.location.href = targetUrl;
             }, 850); 
         }
 
-        // Black and White high-contrast toggle layout script
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
-            const themeText = document.getElementById('theme-text');
+            const toggleBtn = document.getElementById('themeToggleBtn');
             
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'light');
-                themeText.textContent = 'Dark Mode';
+                toggleBtn.textContent = 'Dark Mode';
+                toggleBtn.className = 'theme-btn-outline';
             } else {
                 body.setAttribute('data-theme', 'dark');
-                themeText.textContent = 'Light Mode';
+                toggleBtn.textContent = 'Light Mode';
+                toggleBtn.className = 'theme-btn-solid';
             }
         }
     </script>
