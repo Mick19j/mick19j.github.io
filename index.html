@@ -40,12 +40,12 @@
             overflow-x: hidden;
         }
 
-        /* 1. TOP BRAND HEADER - ENLARGED & LEFT-ALIGNED IDENTITY */
+        /* 1. TOP BRAND HEADER - REVERTED TO SLEEK SIZE / LEFT ALIGNED IDENTITY */
         .identity-header {
             background-color: var(--brand-blue);
             color: var(--header-text);
             width: 100%;
-            padding: 40px; /* Made bigger as requested */
+            padding: 24px 40px; /* Reverted to sleek original sizing */
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             align-items: center;
@@ -61,8 +61,8 @@
         }
 
         .avatar-slot {
-            width: 75px; /* Slightly larger scale to balance the larger header */
-            height: 75px;
+            width: 95px; /* Increased size to look prominent */
+            height: 95px;
             border-radius: 50%;
             border: 2px solid var(--terminal-green);
             background-color: #1a2c44;
@@ -83,10 +83,9 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 500;
-            color: var(--terminal-green); /* Themed title text to hacker green */
+            color: var(--terminal-green);
         }
 
-        /* Center block explicitly erased and left blank */
         .header-center {
             display: flex;
             justify-content: center;
@@ -108,7 +107,7 @@
         /* 2. DOCKED LEFT SIDE NAVIGATION - UNIFIED WITH HEADER DARK BLUE */
         .left-dock {
             width: 260px;
-            background-color: var(--brand-blue); /* Filled with dark blue */
+            background-color: var(--brand-blue);
             border-right: 2px solid var(--border-line);
             padding: 40px 24px;
             display: flex;
@@ -121,13 +120,13 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 18px; /* Increased padding slightly to reward the larger buttons */
+            gap: 18px;
         }
 
-        /* 3. GLITCH BUTTON ARCHITECTURE (COMPILED FROM UIVERSE SPEC) */
+        /* 3. GLITCH BUTTON ARCHITECTURE */
         [class*="btn-glitch-"] {
             display: inline-block;
-            font-family: "Courier New", Courier, monospace; /* Clean fallbacks for VT323 hacker tone */
+            font-family: "Courier New", Courier, monospace;
             border: 1px solid var(--terminal-green);
             color: var(--terminal-green);
             padding: 12px 15px;
@@ -147,24 +146,21 @@
             display: inline-block;
         }
 
-        /* Hover & Focus state execution with raw color flashes */
         [class*="btn-glitch-"]:hover,
         [class*="btn-glitch-"]:focus {
             animation-name: glitch;
             animation-duration: 0.2s;
-            background-color: #ffff00; /* Snaps to yellow */
-            color: #000000;            /* Text goes black */
+            background-color: #ffff00;
+            color: #000000;
             border: 1px solid #ffff00;
         }
 
-        /* Active click compression state mapping */
         [class*="btn-glitch-"]:active {
             background: none;
             color: #ffff00;
             border: 1px solid #ffff00;
         }
 
-        /* Glitch Keyframe Sequence */
         @keyframes glitch {
             25% {
                 background-color: #ff0000;
@@ -189,8 +185,7 @@
             }
         }
 
-
-        /* 4. CENTERED CONTENT FRAME & OPTICAL LOAD ALIGNMENTS */
+        /* 4. CONTENT FRAME ARCHITECTURE */
         .right-content-frame {
             flex: 1;
             padding: 60px;
@@ -277,7 +272,6 @@
         #stars { opacity: 0; }
         #toggle:checked + svg #stars { opacity: 1; }
 
-
         /* OPTICAL MATRIX INTERFACE TRAFFIC LOADER */
         .matrix-stage-overlay {
             display: none;
@@ -336,7 +330,7 @@
             .identity-header {
                 grid-template-columns: 1fr;
                 gap: 20px;
-                padding: 30px 20px;
+                padding: 24px 20px;
             }
             .header-left {
                 align-items: center;
@@ -356,19 +350,15 @@
 </head>
 <body data-theme="light">
 
-    <!-- 1. IDENTIFICATION ARCHITECTURE (LEFT STACKED) -->
+    <!-- 1. IDENTIFICATION ARCHITECTURE (SLEEK HEADER / BIGGER PROFILE PIC) -->
     <header class="identity-header">
         <div class="header-left">
             <div class="avatar-slot"></div>
             <h1>Mickael Benlolo</h1>
             <p class="track-title">AppSec & Pentester</p>
         </div>
-        <div class="header-center">
-            <!-- Left blank intentionally -->
-        </div>
-        <div class="header-right">
-            <!-- Left blank intentionally / padding ballast -->
-        </div>
+        <div class="header-center"></div>
+        <div class="header-right"></div>
     </header>
 
     <!-- MAIN INTERACTIVE WORKSPACE -->
@@ -446,7 +436,7 @@
                 <g id="components">
                     <rect height="37.333" width="73.333" rx="18.667" y="0.333" x="0.333" fill="#a3daff" id="container"></rect>
                     <g transform="translate(4, 4)" id="patches">
-                        <path d="M26.241,23.364 C26.347,23.315 26.459,23.284 26.577,23.277 C27.144,23.245 27.628,22.81 27.659,22.242 C27.691,21.675 27.256,21.192 26.689,21.16 C26.65,21.158 26.611,21.159 26.573,21.162 C25.074,21.289 24.168,20.021 24.168,18.528 C24.168,17.036 25.074,15.767 26.573,15.894 C26.611,15.897 26.65,15.898 26.689,15.896 C27.256,15.864 27.691,15.381 27.659,14.813 C27.628,14.246 27.144,13.811 26.577,13.779 C26.459,13.772 26.347,13.741 26.241,13.692 C25.02,13.124 24.288,11.892 24.288,10.548 C24.288,9.204 25.02,7.971 26.241,7.404 C26.347,7.355 26.459,7.324 26.577,7.317 C27.144,7.285 27.628,6.85 27.659,6.282 C27.691,5.715 27.256,5.231 26.689,5.2 C26.65,5.197 26.611,5.199 26.573,5.202 C24.512,5.376 22.848,3.771 22.848,1.705 C22.848,1.135 22.386,0.673 21.816,0.673 C21.246,0.673 20.784,1.135 20.784,1.705 C20.784,3.771 19.12,5.376 17.059,5.202 C17.021,5.199 16.982,5.197 16.943,5.2 C16.376,5.231 15.941,5.715 15.973,6.282 C16.004,6.85 16.488,7.285 17.055,7.317 C17.173,7.324 17.285,7.355 17.391,7.404 C18.612,7.971 19.344,9.204 19.344,10.548 C19.344,11.892 18.612,13.124 17.391,13.692 C17.285,13.741 17.173,13.772 17.055,13.779 C16.488,13.811 16.004,14.246 15.973,14.813 C15.941,15.381 16.376,15.864 16.943,15.896 C16.982,15.898 17.021,15.897 17.059,15.894 C18.558,15.767 19.464,17.036 19.464,18.528 C19.464,20.021 18.558,21.289 17.059,21.162 C17.021,21.159 16.982,21.158 16.943,21.16 C16.376,21.192 15.941,21.675 15.973,22.242 C16.004,22.81 16.488,23.245 17.055,23.277 C17.173,23.284 17.285,23.315 17.391,23.364 C18.612,23.931 19.344,25.164 19.344,26.508 C19.344,27.852 18.612,29.085 17.391,29.652 C17.285,29.701 17.173,29.732 17.055,29.739 C16.488,29.771 16.004,30.206 15.973,30.774 C15.941,31.341 16.376,31.825 16.943,31.856 C16.982,31.859 17.021,31.861 17.059,31.858 C19.12,31.684 20.784,33.289 20.784,35.355 C20.784,35.925 21.246,36.387 21.816,36.387 C22.386,36.387 22.848,35.925 22.848,35.355 C22.848,33.289 24.512,31.684 26.573,31.858 C26.611,31.861 26.65,31.859 26.689,31.856 C27.256,31.825 27.691,31.341 27.659,30.774 C27.628,30.206 27.144,29.771 26.577,29.739 C26.459,29.732 26.347,29.701 26.241,29.652 C25.02,29.085 24.288,27.852 24.288,26.508 C24.288,25.164 25.02,23.931 26.241,23.364 Z" fill="#e4f4ff" id="cloud"></path>
+                        <path d="M26.241,23.364 C26.347,23.315 26.459,23.284 26.577,23.277 C27.144,23.245 27.628,22.81 27.659,22.242 C27.691,21.675 27.256,21.192 27.659,22.242 C27.691,21.675 27.256,21.192 26.689,21.16 C26.65,21.158 26.611,21.159 26.573,21.162 C25.074,21.289 24.168,20.021 24.168,18.528 C24.168,17.036 25.074,15.767 26.573,15.894 C26.611,15.897 26.65,15.898 26.689,15.896 C27.256,15.864 27.691,15.381 27.659,14.813 C27.628,14.246 27.144,13.811 26.577,13.779 C26.459,13.772 26.347,13.741 26.241,13.692 C25.02,13.124 24.288,11.892 24.288,10.548 C24.288,9.204 25.02,7.971 26.241,7.404 C26.347,7.355 26.459,7.324 26.577,7.317 C27.144,7.285 27.628,6.85 27.659,6.282 C27.691,5.715 27.256,5.231 26.689,5.2 C26.65,5.197 26.611,5.199 26.573,5.202 C24.512,5.376 22.848,3.771 22.848,1.705 C22.848,1.135 22.386,0.673 21.816,0.673 C21.246,0.673 20.784,1.135 20.784,1.705 C20.784,3.771 19.12,5.376 17.059,5.202 C17.021,5.199 16.982,5.197 16.943,5.2 C16.376,5.231 15.941,5.715 15.973,6.282 C16.004,6.85 16.488,7.285 17.055,7.317 C17.173,7.324 17.285,7.355 17.391,7.404 C18.612,7.971 19.344,9.204 19.344,10.548 C19.344,11.892 18.612,13.124 17.391,13.692 C17.285,13.741 17.173,13.772 17.055,13.779 C16.488,13.811 16.004,14.246 15.973,14.813 C15.941,15.381 16.376,15.864 16.943,15.896 C16.982,15.898 17.021,15.897 17.059,15.894 C18.558,15.767 19.464,17.036 19.464,18.528 C19.464,20.021 18.558,21.289 17.059,21.162 C17.021,21.159 16.982,21.158 16.943,21.16 C16.376,21.192 15.941,21.675 15.973,22.242 C16.004,22.81 16.488,23.245 17.055,23.277 C17.173,23.284 17.285,23.315 17.391,23.364 C18.612,23.931 19.344,25.164 19.344,26.508 C19.344,27.852 18.612,29.085 17.391,29.652 C17.285,29.701 17.173,29.732 17.055,29.739 C16.488,29.771 16.004,30.206 15.973,30.774 C15.941,31.341 16.376,31.825 16.943,31.856 C16.982,31.859 17.021,31.861 17.059,31.858 C19.12,31.684 20.784,33.289 20.784,35.355 C20.784,35.925 21.246,36.387 21.816,36.387 C22.386,36.387 22.848,35.925 22.848,35.355 C22.848,33.289 24.512,31.684 26.573,31.858 C26.611,31.861 26.65,31.859 26.689,31.856 C27.256,31.825 27.691,31.341 27.659,30.774 C27.628,30.206 27.144,29.771 26.577,29.739 C26.459,29.732 26.347,29.701 26.241,29.652 C25.02,29.085 24.288,27.852 24.288,26.508 C24.288,25.164 25.02,23.931 26.241,23.364 Z" fill="#e4f4ff" id="cloud"></path>
                         <g fill="#ffffff" id="stars">
                             <path d="M 5.408 5.923 L 5.908 6.551 L 6.643 6.183 L 6.223 5.485 L 6.723 4.857 L 5.988 5.225 Z"></path>
                             <path d="M 14.152 2.813 L 14.398 3.524 L 15.111 3.239 L 14.619 2.628 L 14.865 1.917 L 14.152 2.202 Z"></path>
