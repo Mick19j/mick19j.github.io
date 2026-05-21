@@ -5,35 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickael Benlolo | Portfolio & Blog</title>
     <style>
-        /* Sand / Beige & Dark Premium Color Theme */
+        /* Stark Black & White Minimalist Theme */
         :root {
-            --bg-color: #fdfbf7;        /* Warm alabaster/white */
-            --text-main: #2d2a26;       /* Soft dark charcoal */
-            --text-muted: #7a756e;      /* Muted earth tone */
-            --border-line: #e8e2d5;     /* Soft sand border */
+            --bg-color: #ffffff;        /* Pure White */
+            --text-main: #000000;       /* Solid Black */
+            --border-line: #000000;     /* Strong Black Lines */
             
-            /* Header Space */
-            --header-bg: #121110;       /* Solid deep black/charcoal rectangle */
+            /* Header & Sidebar Blocks */
+            --header-bg: #000000;
             --header-text: #ffffff;
             
-            /* Sand Button Palette */
-            --sand-primary: #c2b29a;    /* Classic solid sand */
-            --sand-hover: #a89981;      /* Deeper sand for hovers */
-            --sand-text: #ffffff;
+            /* Dynamic Button Colors */
+            --btn-bg: #000000;
+            --btn-text: #ffffff;
         }
 
         [data-theme="dark"] {
-            --bg-color: #121110;        /* Deep warm dark */
-            --text-main: #f4f1eb;       /* Off-white warm text */
-            --text-muted: #968f85;
-            --border-line: #2d2a27;
+            --bg-color: #000000;        /* Pitch Black */
+            --text-main: #ffffff;       /* Pure White */
+            --border-line: #ffffff;     /* Strong White Lines */
             
-            --header-bg: #050505;       /* Pitch black header for dark mode */
+            --header-bg: #ffffff;
+            --header-text: #000000;
             
-            /* Dark mode sand adjustments */
-            --sand-primary: #ddccb3;    /* Brighter sand for dark backgrounds */
-            --sand-hover: #c2b29a;
-            --sand-text: #121110;
+            --btn-bg: #ffffff;
+            --btn-text: #000000;
         }
 
         * {
@@ -49,11 +45,11 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.15s, color 0.15s;
             overflow-x: hidden;
         }
 
-        /* 1. TOP HEADER RECTANGLE (Takes up top structural space) */
+        /* 1. TOP HEADER RECTANGLE */
         .identity-header {
             background-color: var(--header-bg);
             color: var(--header-text);
@@ -64,26 +60,25 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-bottom: 2px solid var(--sand-primary);
+            border-bottom: 2px solid var(--border-line);
+            transition: background-color 0.15s, color 0.15s;
         }
 
         .identity-header h1 {
             font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 6px;
         }
 
         .identity-header p {
             font-size: 0.95rem;
-            color: var(--sand-primary);
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 0;
         }
 
-        /* MAIN BODY CONTAINER (Holds Left Nav and Right Content Side-by-Side) */
+        /* WORKSPACE GRID */
         .workspace {
             display: flex;
             flex: 1;
@@ -91,10 +86,10 @@
             position: relative;
         }
 
-        /* 2. DOCKED LEFT NAVIGATION COLUMN */
+        /* 2. DOCKED LEFT SIDE NAVIGATION */
         .left-dock {
             width: 260px;
-            border-right: 1px solid var(--border-line);
+            border-right: 2px solid var(--border-line);
             padding: 40px 24px;
             display: flex;
             flex-direction: column;
@@ -108,90 +103,93 @@
             gap: 14px;
         }
 
-        /* INTERACTIVE SAND BUTTONS */
+        /* INTERACTIVE BLACK & WHITE BUTTONS */
         .nav-btn-solid, .nav-btn-outline {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            border-radius: 8px;
+            justify-content: center; /* Center-aligned label text */
+            border-radius: 4px;
             padding: 12px 20px;
             text-decoration: none;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.25s, border-color 0.25s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
         }
 
         .nav-btn-solid {
-            border: 1px solid var(--sand-primary);
-            background-color: var(--sand-primary);
+            border: 2px solid var(--border-line);
+            background-color: var(--btn-bg);
         }
 
         .nav-btn-solid span {
-            font-weight: 500;
-            color: var(--sand-text);
-            transition: color 0.25s;
+            font-weight: 600;
+            color: var(--btn-text);
         }
 
         .nav-btn-solid:hover {
             background-color: transparent;
-            border-color: var(--sand-primary);
         }
 
         .nav-btn-solid:hover span {
-            color: var(--sand-primary);
+            color: var(--text-main);
         }
 
         .nav-btn-outline {
-            border: 1px solid var(--sand-primary);
+            border: 2px solid var(--border-line);
             background-color: transparent;
         }
 
         .nav-btn-outline span {
-            font-weight: 500;
-            color: var(--sand-primary);
-            transition: color 0.25s;
+            font-weight: 600;
+            color: var(--text-main);
         }
 
         .nav-btn-outline:hover {
-            background-color: var(--sand-primary);
+            background-color: var(--btn-bg);
         }
 
         .nav-btn-outline:hover span {
-            color: var(--sand-text);
+            color: var(--btn-text);
         }
 
-        /* 3. MAIN RIGHT CONTENT MODULE */
+        /* 3. CENTERED RIGHT CONTENT VIEWPORT FRAME */
         .right-content-frame {
             flex: 1;
-            padding: 60px 50px;
-            max-width: 800px;
-            transform-origin: center center; /* Sets pivot point for the collapse effect */
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertically centered content */
+            align-items: center;      /* Horizontally centered content */
+            text-align: center;       /* Center paragraph blocks */
+            position: relative;
         }
 
-        /* Dynamic classes controlled by JavaScript for the Smoosh Transition */
-        .smoosh-out {
-            animation: collapseViewport 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-        }
-
-        /* GENTLE FLOWING IN ANIMATION (On Initial Load) */
         .flowing-text {
-            animation: textFlowIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        /* Hide text wrapper when Matrix overlay fires */
+        .flowing-text.hidden-state {
             opacity: 0;
+            pointer-events: none;
         }
 
         h2 {
-            font-size: 1.6rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 24px;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
         }
 
-        .flowing-text p {
-            font-size: 1rem;
-            line-height: 1.7;
+        p {
+            font-size: 1.05rem;
+            line-height: 1.75;
             margin-bottom: 20px;
-            color: var(--text-main);
         }
 
         /* FLOATING THEME TOGGLE */
@@ -200,111 +198,109 @@
             bottom: 40px;
             right: 40px;
             background-color: var(--bg-color);
-            border: 1px solid var(--border-line);
+            border: 2px solid var(--border-line);
             color: var(--text-main);
             padding: 10px 14px;
-            border-radius: 20px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 0.85rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: all 0.2s ease;
             z-index: 1000;
         }
 
-        /* --- THE MIDDLE SMOOSH WIND INTERACTIVE LAYER --- */
-        .mid-wind-belt {
+        /* --- AI MATRIX LOADER SYSTEM INTERACTION CONTAINER --- */
+        .matrix-stage-overlay {
             position: absolute;
-            top: 45%;
-            left: 260px; /* Aligned exactly out of the docked side panel */
-            right: 0;
-            height: 80px;
-            pointer-events: none;
-            z-index: 999;
-            overflow: hidden;
-        }
-
-        .longfazers {
-            position: absolute;
+            display: none; /* Keeps hidden until click engine triggers */
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            display: none;
+            pointer-events: none;
         }
 
-        .active-wind .longfazers {
-            display: block;
+        .matrix-stage-overlay.active-loader {
+            display: flex;
         }
 
-        /* Pitch Black Strings inside the middle belt */
-        .longfazers span {
+        /* UIverse.io Snippet Implementation styling */
+        .ai-matrix-loader {
+            width: 120px;
+            height: 160px;
+            position: relative;
+            perspective: 800px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .digit {
+            color: #00ff88;
+            font-family: monospace;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 8px #00ff88;
+            animation: matrix-fall 1.5s infinite, matrix-flicker 0.5s infinite;
+            opacity: 0;
+        }
+
+        .digit:nth-child(1) { animation-delay: 0.1s; }
+        .digit:nth-child(2) { animation-delay: 0.3s; }
+        .digit:nth-child(3) { animation-delay: 0.5s; }
+        .digit:nth-child(4) { animation-delay: 0.7s; }
+        .digit:nth-child(5) { animation-delay: 0.9s; }
+        .digit:nth-child(6) { animation-delay: 1.1s; }
+        .digit:nth-child(7) { animation-delay: 1.3s; }
+        .digit:nth-child(8) { animation-delay: 1.5s; }
+
+        .glow {
             position: absolute;
-            height: 2px;
-            width: 18%;
-            background: #000000;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.15) 0%, transparent 70%);
+            animation: matrix-pulse 1.5s infinite;
         }
 
-        .longfazers span:nth-child(1) { top: 15%; animation: lf 0.4s linear infinite; }
-        .longfazers span:nth-child(2) { top: 40%; animation: lf2 0.5s linear infinite; animation-delay: -0.1s; }
-        .longfazers span:nth-child(3) { top: 65%; animation: lf3 0.4s linear infinite; animation-delay: -0.2s; }
-        .longfazers span:nth-child(4) { top: 85%; animation: lf4 0.3s linear infinite; animation-delay: -0.15s; }
-
-        /* KEYFRAMES ENGINE */
-        @keyframes textFlowIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* The Viewport Smooshing down into a thin center line */
-        @keyframes collapseViewport {
+        /* MATRIX ENGINE KEYFRAMES */
+        @keyframes matrix-fall {
             0% {
-                transform: scaleY(1);
-                opacity: 1;
-                filter: blur(0px);
+                transform: translateY(-40px) rotateX(90deg);
+                opacity: 0;
+            }
+            20%, 80% {
+                transform: translateY(0) rotateX(0deg);
+                opacity: 0.9;
             }
             100% {
-                transform: scaleY(0.01);
+                transform: translateY(40px) rotateX(-90deg);
                 opacity: 0;
-                filter: blur(2px);
             }
         }
 
-        /* String Velocity Mechanics */
-        @keyframes lf {
-            0% { left: 120%; }
-            100% { left: -120%; opacity: 0; }
-        }
-        @keyframes lf2 {
-            0% { left: 120%; }
-            100% { left: -120%; opacity: 0; }
-        }
-        @keyframes lf3 {
-            0% { left: 120%; }
-            100% { left: -100%; opacity: 0; }
-        }
-        @keyframes lf4 {
-            0% { left: 120%; }
-            100% { left: -100%; opacity: 0; }
+        @keyframes matrix-flicker {
+            0%, 19%, 21%, 100% { opacity: 0.9; }
+            20% { opacity: 0.2; }
         }
 
-        /* Responsive Breakpoint */
+        @keyframes matrix-pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
         @media (max-width: 768px) {
-            .workspace {
-                flex-direction: column;
-            }
+            .workspace { flex-direction: column; }
             .left-dock {
                 width: 100%;
                 border-right: none;
-                border-bottom: 1px solid var(--border-line);
-            }
-            .mid-wind-belt {
-                left: 0;
-                top: 50%;
+                border-bottom: 2px solid var(--border-line);
             }
         }
     </style>
@@ -317,57 +313,65 @@
         <p>AppSec & Pentester</p>
     </header>
 
-    <!-- WORKSPACE WRAPPER -->
+    <!-- MAIN DASHBOARD SPACE -->
     <div class="workspace">
         
-        <!-- MIDDLE BELT RUNWAY FOR THE WIND STRINGS -->
-        <div class="mid-wind-belt" id="windBelt">
-            <div class="longfazers">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-
-        <!-- 2. LEFT DOCKED NAVIGATION SIDE PANEL -->
+        <!-- 2. DOCKED LEFT NAVIGATION SIDE PANEL -->
         <nav class="left-dock">
             <ul class="nav-links">
                 <li>
-                    <a class="nav-btn-solid" href="index.html" onclick="triggerHomeFlow(event)">
+                    <a class="nav-btn-solid" href="index.html" onclick="resetHomeView(event)">
                         <span>Home</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="about.html" onclick="transitionPage(event, this.href)">
+                    <a class="nav-btn-outline" href="about.html" onclick="runMatrixRoute(event, this.href)">
                         <span>About Me</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="blog.html" onclick="transitionPage(event, this.href)">
+                    <a class="nav-btn-outline" href="blog.html" onclick="runMatrixRoute(event, this.href)">
                         <span>Blog</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="certificates.html" onclick="transitionPage(event, this.href)">
+                    <a class="nav-btn-outline" href="certificates.html" onclick="runMatrixRoute(event, this.href)">
                         <span>Certificates</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="contact.html" onclick="transitionPage(event, this.href)">
+                    <a class="nav-btn-outline" href="contact.html" onclick="runMatrixRoute(event, this.href)">
                         <span>Contact</span>
                     </a>
                 </li>
             </ul>
         </nav>
 
-        <!-- 3. RIGHT CONTENT VIEWPORT FRAME -->
-        <main class="right-content-frame" id="contentFrame">
-            <div class="flowing-text" id="homeText">
+        <!-- 3. CENTERED CONTENT WINDOW WITH INTERACTIVE MATRIX OVERLAY -->
+        <main class="right-content-frame">
+            
+            <!-- THE MATRIX STREAM MATRIX LOAD AREA -->
+            <div class="matrix-stage-overlay" id="matrixStage">
+                <div class="ai-matrix-loader">
+                    <div class="glow"></div>
+                    <div class="digit">1</div>
+                    <div class="digit">0</div>
+                    <div class="digit">1</div>
+                    <div class="digit">0</div>
+                    <div class="digit">1</div>
+                    <div class="digit">1</div>
+                    <div class="digit">0</div>
+                    <div class="digit">1</div>
+                </div>
+            </div>
+
+            <!-- VIEWPORT TEXT DISPLAY -->
+            <div class="flowing-text" id="mainDisplay">
                 <h2>Hello.</h2>
                 <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
                 <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
             </div>
+
         </main>
 
     </div>
@@ -378,39 +382,39 @@
     </button>
 
     <script>
-        // Smoothly resets and replays the text flow animation inside the home window
-        function triggerHomeFlow(event) {
+        // Restores home text seamlessly if clicking Home link again
+        function resetHomeView(event) {
             event.preventDefault();
-            const textElement = document.getElementById('homeText');
+            const textFrame = document.getElementById('mainDisplay');
+            const loaderStage = document.getElementById('matrixStage');
             
-            textElement.style.animation = 'none';
-            textElement.offsetHeight; // Force instant layout recalculation
-            textElement.style.animation = 'textFlowIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+            loaderStage.classList.remove('active-loader');
+            textFrame.classList.remove('hidden-state');
         }
 
-        // The "Smoosh & Wind" Transition Module
-        function transitionPage(event, targetUrl) {
+        // The Digital Matrix Navigation Engine
+        function runMatrixRoute(event, targetUrl) {
             event.preventDefault();
             
-            const contentFrame = document.getElementById('contentFrame');
-            const windBelt = document.getElementById('windBelt');
+            const textFrame = document.getElementById('mainDisplay');
+            const loaderStage = document.getElementById('matrixStage');
             
-            // 1. Reset state instantly to support endless repeating clicks cleanly
-            contentFrame.classList.remove('smoosh-out');
-            windBelt.classList.remove('active-wind');
-            contentFrame.offsetHeight; // Structural reflow
+            // 1. Force state reset instantly to clear any older cycles
+            loaderStage.classList.remove('active-loader');
+            textFrame.classList.remove('hidden-state');
+            textFrame.offsetHeight; // Force instant layout clear
             
-            // 2. Fire the Viewport vertical collapse and turn on the wind string belt
-            contentFrame.classList.add('smoosh-out');
-            windBelt.classList.add('active-wind');
+            // 2. Hide text block and instantly display the green streaming grid code matrix
+            textFrame.classList.add('hidden-state');
+            loaderStage.classList.add('active-loader');
             
-            // 3. Jump to the next target file while the module is completely flat
+            // 3. Jump to the selected standalone HTML file
             setTimeout(() => {
                 window.location.href = targetUrl;
-            }, 450); 
+            }, 850); 
         }
 
-        // Dark/Light Mode Theme Toggle
+        // High contrast Light/Dark execution block
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
