@@ -43,7 +43,7 @@
             display: flex;
             min-height: 100vh;
             transition: background-color 0.3s, color 0.3s;
-            overflow-x: hidden; /* Prevent wind animation from creating scrollbars */
+            overflow-x: hidden; /* Vital to hide the wind strings when they fly off screen */
         }
 
         /* Layout Structure */
@@ -144,10 +144,10 @@
         .right-column {
             flex: 1;
             max-width: 700px;
-            padding-top: 40px; /* Pushed the text a little lower as requested */
+            padding-top: 40px; /* Pushed text down lower */
         }
 
-        /* FLOWING CONTENT ANIMATION (For Home Text) */
+        /* FLOWING CONTENT ANIMATION (Home Text) */
         .flowing-text {
             animation: textFlowIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -188,8 +188,8 @@
             transform: translateY(-2px);
         }
 
-        /* SAND WIND PAGE TRANSITION OVERLAY */
-        .sand-wind-overlay {
+        /* --- SANDY SCREEN OVERLAY & WIND STRINGS --- */
+        .sand-wind-page {
             position: fixed;
             top: 0;
             left: 0;
@@ -197,16 +197,57 @@
             height: 100%;
             background-color: var(--sand-primary);
             z-index: 9999;
-            transform: translateX(-100%);
-            pointer-events: none; /* Allows clicking through when inactive */
+            pointer-events: none;
+            opacity: 0;
+            display: none; /* Kept hidden until triggered */
         }
 
-        /* Wind Animation Trigger Class */
-        .wind-blowing {
-            animation: sandWindEffect 0.75s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        /* Dynamic classes controlled by JavaScript */
+        .sand-wind-page.active {
+            display: block;
+            animation: phaseBg 0.7s ease-in-out forwards;
         }
 
-        /* Keyframes for Home Text Flowing In */
+        .longfazers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .sand-wind-page.active .longfazers {
+            display: block;
+        }
+
+        /* Sharp black wind strings */
+        .longfazers span {
+            position: absolute;
+            height: 2px;
+            width: 25%;
+            background: #000000; /* Pure black lines */
+        }
+
+        .longfazers span:nth-child(1) {
+            top: 15%;
+            animation: lf 0.5s linear infinite;
+        }
+        .longfazers span:nth-child(2) {
+            top: 35%;
+            animation: lf2 0.6s linear infinite;
+            animation-delay: -0.1s;
+        }
+        .longfazers span:nth-child(3) {
+            top: 55%;
+            animation: lf3 0.5s linear infinite;
+            animation-delay: -0.2s;
+        }
+        .longfazers span:nth-child(4) {
+            top: 75%;
+            animation: lf4 0.4s linear infinite;
+            animation-delay: -0.3s;
+        }
+
+        /* KEYFRAMES */
         @keyframes textFlowIn {
             from {
                 opacity: 0;
@@ -218,20 +259,30 @@
             }
         }
 
-        /* Keyframes for the Sand Wind transition across the screen */
-        @keyframes sandWindEffect {
-            0% {
-                transform: translateX(-100%);
-            }
-            45% {
-                transform: translateX(0%);
-            }
-            55% {
-                transform: translateX(0%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
+        /* Background overlay alpha-timing */
+        @keyframes phaseBg {
+            0% { opacity: 0; }
+            35% { opacity: 1; }
+            65% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Wind velocity mechanics (Right-to-Left rushing effect) */
+        @keyframes lf {
+            0% { left: 150%; }
+            100% { left: -150%; opacity: 0; }
+        }
+        @keyframes lf2 {
+            0% { left: 150%; }
+            100% { left: -150%; opacity: 0; }
+        }
+        @keyframes lf3 {
+            0% { left: 150%; }
+            100% { left: -100%; opacity: 0; }
+        }
+        @keyframes lf4 {
+            0% { left: 150%; }
+            100% { left: -100%; opacity: 0; }
         }
 
         @media (max-width: 768px) {
@@ -248,8 +299,15 @@
 </head>
 <body data-theme="light">
 
-    <!-- THE WIND ANIMATION LAYER -->
-    <div class="sand-wind-overlay" id="windOverlay"></div>
+    <!-- THE WIND ANIMATION STAGE -->
+    <div class="sand-wind-page" id="windStage">
+        <div class="longfazers">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 
     <div class="container">
         
@@ -262,7 +320,6 @@
             
             <ul class="nav-links">
                 <li>
-                    <!-- Home has a custom reload click to showcase the text flowing animation -->
                     <a class="nav-btn-solid" href="index.html" onclick="triggerHomeFlow(event)">
                         <span>Home</span>
                     </a>
@@ -290,7 +347,7 @@
             </ul>
         </div>
 
-        <!-- RIGHT-HAND CONTENT WINDOW (HOME ONLY) -->
+        <!-- RIGHT-HAND CONTENT WINDOW -->
         <div class="right-column">
             <div class="flowing-text" id="homeText">
                 <h2>Hello.</h2>
@@ -307,32 +364,35 @@
     </button>
 
     <script>
-        // Smoothly flows the text back in if they click Home while already on index
+        // Smoothly resets and replays the text flow animation
         function triggerHomeFlow(event) {
             event.preventDefault();
             const textElement = document.getElementById('homeText');
             
-            // Reset the animation class
             textElement.style.animation = 'none';
-            textElement.offsetHeight; // Trigger reflow to restart animation
+            textElement.offsetHeight; // Forces browser reflow instantly
             textElement.style.animation = 'textFlowIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards';
         }
 
-        // The Wind Transition Engine
+        // Optimized Wind Transition Engine (Fixed repetition bug)
         function transitionPage(event, targetUrl) {
-            event.preventDefault(); // Stop instant redirecting
-            const overlay = document.getElementById('windOverlay');
+            event.preventDefault();
+            const stage = document.getElementById('windStage');
             
-            // Start the wind animation
-            overlay.classList.add('wind-blowing');
+            // Clean up old instances to ensure it fires smoothly every click
+            stage.classList.remove('active');
+            stage.offsetHeight; // Force mechanical browser layout calculation
             
-            // Halfway through the animation (when screen is completely sand-colored), change the page
+            // Re-arm animation
+            stage.classList.add('active');
+            
+            // Route to target file precisely while screen is fully masked
             setTimeout(() => {
                 window.location.href = targetUrl;
-            }, 350); 
+            }, 400); 
         }
 
-        // Theme Engine
+        // Theme Toggle Engine
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
