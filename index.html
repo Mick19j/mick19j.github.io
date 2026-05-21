@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickael Benlolo | Portfolio & Blog</title>
     <style>
-        /* Matrix-Infused Deep Blue & Terminal Green Theme */
+        /* Deep Blue Header & Monochrome Interface Theme */
         :root {
             --bg-color: #ffffff;        /* Pure White Background */
             --text-main: #000000;       /* Solid Black Text */
@@ -14,11 +14,21 @@
             /* Custom Blocks & Accents */
             --header-bg: #101c2c;       /* Deep Dark Blue */
             --header-text: #ffffff;     /* White Text on Blue */
-            --hacker-green: #00ff66;    /* Vibrant Terminal Green */
             
-            /* Button Text (Light Mode) */
-            --btn-text-default: #000000;
-            --btn-text-hover: #ffffff;
+            /* Button Theme Mapping (Light Mode) */
+            --btn-solid-bg: #000000;
+            --btn-solid-border: #000000;
+            --btn-solid-text: #ffffff;
+            --btn-solid-hover-text: #000000;
+            
+            --btn-outline-border: #000000;
+            --btn-outline-text: #000000;
+            --btn-outline-hover-bg: #000000;
+            --btn-outline-hover-text: #ffffff;
+            
+            --badge-bg: #ffffff;
+            --badge-border: #000000;
+            --badge-dot: #000000;
         }
 
         [data-theme="dark"] {
@@ -26,9 +36,20 @@
             --text-main: #ffffff;       /* Pure White Text */
             --border-line: #ffffff;     /* White Line Borders */
             
-            /* Button Text (Dark Mode) */
-            --btn-text-default: #ffffff;
-            --btn-text-hover: #000000;
+            /* Button Theme Mapping (Dark Mode) */
+            --btn-solid-bg: #ffffff;
+            --btn-solid-border: #ffffff;
+            --btn-solid-text: #000000;
+            --btn-solid-hover-text: #ffffff;
+            
+            --btn-outline-border: #ffffff;
+            --btn-outline-text: #ffffff;
+            --btn-outline-hover-bg: #ffffff;
+            --btn-outline-hover-text: #000000;
+            
+            --badge-bg: #000000;
+            --badge-border: #ffffff;
+            --badge-dot: #ffffff;
         }
 
         * {
@@ -74,7 +95,7 @@
             font-size: 0.95rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: #ffffff; /* Reverted strictly back to pure white */
+            color: #ffffff;
         }
 
         /* WORKSPACE MATRIX WINDOW */
@@ -103,7 +124,7 @@
             gap: 14px;
         }
 
-        /* TERMINAL GREEN COMPONENT BUTTONS */
+        /* CUSTOM TRANSLATED BUTTON COMPONENTS */
         .nav-btn-solid, .nav-btn-outline {
             display: flex;
             align-items: center;
@@ -114,49 +135,82 @@
             text-decoration: none;
             cursor: pointer;
             width: 100%;
-            border: 2px solid var(--hacker-green);
             transition: background-color 0.2s, border-color 0.2s;
         }
 
-        /* Active/Home State layout */
-        .nav-btn-solid {
-            background-color: var(--hacker-green);
+        .nav-btn-solid span.btn-label, .nav-btn-outline span.btn-label {
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
-        .nav-btn-solid span {
-            font-weight: 600; 
-            color: #000000; /* Dark text over solid green default background */
-            transition: color 0.2s;
+        /* Circular tracking badge component (Replaces the arrow) */
+        .badge-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid var(--badge-border);
+            background-color: var(--badge-bg);
+            transition: transform 0.2s;
+        }
+
+        .badge-marker::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--badge-dot);
+        }
+
+        /* Type A: Active/Home Solid Button Layout */
+        .nav-btn-solid {
+            background-color: var(--btn-solid-bg);
+            border: 1px solid var(--btn-solid-border);
+        }
+
+        .nav-btn-solid span.btn-label {
+            color: var(--btn-solid-text);
         }
 
         .nav-btn-solid:hover {
             background-color: transparent;
         }
 
-        .nav-btn-solid:hover span {
-            color: var(--text-main); /* Flips cleanly to main theme text color */
+        .nav-btn-solid:hover span.btn-label {
+            color: var(--btn-solid-hover-text);
         }
 
-        /* Standard Navigation State Layout */
+        .nav-btn-solid:hover .badge-marker {
+            transform: scale(1.1);
+        }
+
+        /* Type B: Secondary Outline Button Layout */
         .nav-btn-outline {
             background-color: transparent;
+            border: 1px solid var(--btn-outline-border);
         }
 
-        .nav-btn-outline span {
-            font-weight: 600; 
-            color: var(--btn-text-default); /* Keeps text in theme standard color */
-            transition: color 0.2s;
+        .nav-btn-outline span.btn-label {
+            color: var(--btn-outline-text);
         }
 
         .nav-btn-outline:hover {
-            background-color: var(--hacker-green);
+            background-color: var(--btn-outline-hover-bg);
         }
 
-        .nav-btn-outline:hover span {
-            color: var(--btn-text-hover); /* Inverts text clean over green splash */
+        .nav-btn-outline:hover span.btn-label {
+            color: var(--btn-outline-hover-text);
         }
 
-        /* 3. CENTERED CONTENT FRAME (Forced to absolute global page middle alignment) */
+        .nav-btn-outline:hover .badge-marker {
+            transform: scale(1.1);
+        }
+
+
+        /* 3. CENTERED CONTENT FRAME & LOADING AXIS */
         .right-content-frame {
             flex: 1;
             padding: 60px;
@@ -167,21 +221,28 @@
             position: relative;
         }
 
+        /* Keeps the text frame and the loader on the exact same central alignment path */
         .center-axis-container {
             max-width: 600px;
             width: 100%;
             text-align: center;
-            margin-left: -260px; /* Counter-balances left dock to keep true middle alignment */
+            margin-left: -260px; 
             z-index: 5;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .flowing-text {
             width: 100%;
+            transition: opacity 0.2s;
         }
 
         .flowing-text.hidden-state {
             opacity: 0;
             pointer-events: none;
+            position: absolute; /* Takes out of flow cleanly so loader inherits exact true center */
         }
 
         h2 {
@@ -214,60 +275,36 @@
             cursor: pointer;
         }
 
-        /* Hide default HTML checkbox */
         #toggle {
             opacity: 0;
             width: 0;
             height: 0;
         }
 
-        #container,
-        #patches,
-        #stars,
-        #button,
-        #sun,
-        #moon,
-        #cloud {
+        #container, #patches, #stars, #button, #sun, #moon, #cloud {
             transition-property: all;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 0.25s;
         }
 
-        /* night sky background */
-        #toggle:checked + svg #container {
-            fill: #2b4360;
-        }
-
-        /* move button to right when checked */
-        #toggle:checked + svg #button {
-            transform: translate(28px, 2.333px);
-        }
-
-        /* show/hide sun and moon based on checkbox state */
+        #toggle:checked + svg #container { fill: #2b4360; }
+        #toggle:checked + svg #button { transform: translate(28px, 2.333px); }
         #sun { opacity: 1; }
         #toggle:checked + svg #sun { opacity: 0; }
-
         #moon { opacity: 0; }
         #toggle:checked + svg #moon { opacity: 1; }
-
-        /* show or hide background items on checkbox state */
         #cloud { opacity: 1; }
         #toggle:checked + svg #cloud { opacity: 0; }
-
         #stars { opacity: 0; }
         #toggle:checked + svg #stars { opacity: 1; }
 
 
-        /* --- MATRIX OVERLAY --- */
+        /* --- REALIGNED MATRIX STAGE LOADER --- */
         .matrix-stage-overlay {
-            position: absolute;
             display: none;
+            width: 100%;
             justify-content: center;
             align-items: center;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             pointer-events: none;
         }
 
@@ -277,7 +314,7 @@
 
         .ai-matrix-loader {
             width: 120px;
-            height: 160px;
+            height: 120px;
             position: relative;
             perspective: 800px;
             display: grid;
@@ -286,12 +323,12 @@
         }
 
         .digit {
-            color: var(--hacker-green);
+            color: var(--text-main); /* Switches cleanly between black or white depending on theme */
             font-family: monospace;
             font-size: 22px;
             font-weight: bold;
             text-align: center;
-            text-shadow: 0 0 8px var(--hacker-green);
+            text-shadow: 0 0 4px var(--text-main);
             animation: matrix-fall 1.5s infinite, matrix-flicker 0.5s infinite;
             opacity: 0;
         }
@@ -305,30 +342,15 @@
         .digit:nth-child(7) { animation-delay: 1.3s; }
         .digit:nth-child(8) { animation-delay: 1.5s; }
 
-        .glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
-            animation: matrix-pulse 1.5s infinite;
-        }
-
         @keyframes matrix-fall {
-            0% { transform: translateY(-40px) rotateX(90deg); opacity: 0; }
+            0% { transform: translateY(-20px) rotateX(90deg); opacity: 0; }
             20%, 80% { transform: translateY(0) rotateX(0deg); opacity: 0.9; }
-            100% { transform: translateY(40px) rotateX(-90deg); opacity: 0; }
+            100% { transform: translateY(20px) rotateX(-90deg); opacity: 0; }
         }
 
         @keyframes matrix-flicker {
             0%, 19%, 21%, 100% { opacity: 0.9; }
             20% { opacity: 0.2; }
-        }
-
-        @keyframes matrix-pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
         }
 
         @media (max-width: 768px) {
@@ -360,27 +382,32 @@
             <ul class="nav-links">
                 <li>
                     <a class="nav-btn-solid" href="index.html" onclick="resetHomeView(event)">
-                        <span>Home</span>
+                        <span class="btn-label">Home</span>
+                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="about.html" onclick="runMatrixRoute(event, this.href)">
-                        <span>About Me</span>
+                        <span class="btn-label">About Me</span>
+                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="blog.html" onclick="runMatrixRoute(event, this.href)">
-                        <span>Blog</span>
+                        <span class="btn-label">Blog</span>
+                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="certificates.html" onclick="runMatrixRoute(event, this.href)">
-                        <span>Certificates</span>
+                        <span class="btn-label">Certificates</span>
+                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="contact.html" onclick="runMatrixRoute(event, this.href)">
-                        <span>Contact</span>
+                        <span class="btn-label">Contact</span>
+                        <span class="badge-marker"></span>
                     </a>
                 </li>
             </ul>
@@ -389,28 +416,30 @@
         <!-- 3. MAIN CONTENT WINDOW AREA -->
         <main class="right-content-frame">
             
-            <!-- THE MATRIX STREAM CHASSIS -->
-            <div class="matrix-stage-overlay" id="matrixStage">
-                <div class="ai-matrix-loader">
-                    <div class="glow"></div>
-                    <div class="digit">1</div>
-                    <div class="digit">0</div>
-                    <div class="digit">1</div>
-                    <div class="digit">0</div>
-                    <div class="digit">1</div>
-                    <div class="digit">1</div>
-                    <div class="digit">0</div>
-                    <div class="digit">1</div>
-                </div>
-            </div>
-
-            <!-- VIEWPORT CONTENT TEXT WINDOW (Centered absolute alignment with name header) -->
+            <!-- CENTRAL FRAMING CHASSIS (Houses both views along the exact same optical axis) -->
             <div class="center-axis-container">
+                
+                <!-- THE REALIGNED MATRIX STREAM CHASSIS -->
+                <div class="matrix-stage-overlay" id="matrixStage">
+                    <div class="ai-matrix-loader">
+                        <div class="digit">1</div>
+                        <div class="digit">0</div>
+                        <div class="digit">1</div>
+                        <div class="digit">0</div>
+                        <div class="digit">1</div>
+                        <div class="digit">1</div>
+                        <div class="digit">0</div>
+                        <div class="digit">1</div>
+                    </div>
+                </div>
+
+                <!-- VIEWPORT CONTENT TEXT WINDOW -->
                 <div class="flowing-text" id="mainDisplay">
                     <h2>Hello.</h2>
                     <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
                     <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
                 </div>
+
             </div>
 
         </main>
@@ -436,9 +465,7 @@
                     </g>
                     <g transform="translate(2, 2)" id="button">
                         <circle r="16.667" cy="16.667" cx="16.667" fill="#eaeaea" id="leather"></circle>
-                        <!-- Light Mode Sun -->
                         <path d="M16.667,11.667 C13.906,11.667 11.667,13.906 11.667,16.667 C11.667,19.428 13.906,21.667 16.667,21.667 C19.428,21.667 21.667,19.428 21.667,16.667 C21.667,13.906 19.428,11.667 16.667,11.667 Z M16.667,7.667 C17.219,7.667 17.667,7.219 17.667,6.667 L17.667,4.667 C17.667,4.115 17.219,3.667 16.667,3.667 C16.115,3.667 15.667,4.115 15.667,4.667 L15.667,6.667 C15.667,7.219 16.115,7.667 16.667,7.667 Z M16.667,25.667 C16.115,25.667 15.667,26.115 15.667,26.667 L15.667,28.667 C15.667,29.115 16.115,29.667 16.667,29.667 C17.219,29.667 17.667,29.115 17.667,28.667 L17.667,26.667 C17.667,26.115 17.219,25.667 16.667,25.667 Z M9.596,10.657 C9.986,11.047 10.62,11.047 11.01,10.657 C11.401,10.266 11.401,9.633 11.01,9.243 L9.596,7.828 C9.205,7.438 8.572,7.438 8.182,7.828 C7.792,8.219 7.792,8.852 8.182,9.243 L9.596,10.657 Z M22.325,23.384 C21.934,22.993 21.301,22.993 20.911,23.384 C20.52,23.774 20.52,24.408 20.911,24.798 L22.325,26.213 C22.715,26.603 23.349,26.603 23.739,26.213 C24.13,25.822 24.13,25.189 23.739,24.798 L22.325,23.384 Z M7.667,16.667 C7.667,16.115 7.219,15.667 6.667,15.667 L4.667,15.667 C4.115,15.667 3.667,16.115 3.667,16.667 C3.667,17.219 4.115,17.667 4.667,17.667 L6.667,17.667 C7.219,17.667 7.667,17.219 7.667,16.667 Z M25.667,16.667 C25.667,17.219 26.115,17.667 26.667,17.667 L28.667,17.667 C29.115,17.667 29.667,17.219 29.667,16.667 C29.667,16.115 29.115,15.667 28.667,15.667 L26.667,15.667 C26.115,15.667 25.667,16.115 25.667,16.667 Z M10.657,23.739 C11.047,23.349 11.047,22.715 10.657,22.325 C10.266,21.934 9.633,21.934 9.243,22.325 L7.828,23.739 C7.438,24.13 7.438,24.763 7.828,25.154 C8.219,25.544 8.852,25.544 9.243,25.154 L10.657,23.739 Z M23.384,11.01 C23.774,10.62 23.774,9.986 23.384,9.596 L21.969,8.182 C21.579,7.792 20.946,7.792 20.556,8.182 C20.165,8.572 20.165,9.205 20.556,9.596 L21.969,11.01 C22.349,11.401 22.993,11.401 23.384,11.01 Z" fill="#ffd600" id="sun"></path>
-                        <!-- Dark Mode Moon -->
                         <path d="M21.667,16.667 C21.667,21.665 17.665,25.667 12.667,25.667 C10.964,25.667 9.387,25.197 8.043,24.385 C10.024,26.438 12.82,27.667 15.917,27.667 C22.02,27.667 26.967,22.72 26.967,16.617 C26.967,13.235 25.441,10.21 23.037,8.211 C22.155,10.428 21.667,12.868 21.667,16.667 Z" fill="#b0bec5" id="moon"></path>
                     </g>
                 </g>
@@ -463,7 +490,7 @@
             
             loaderStage.classList.remove('active-loader');
             textFrame.classList.remove('hidden-state');
-            textFrame.offsetHeight; 
+            textFrame.offsetHeight; // Forces browser repaint
             
             textFrame.classList.add('hidden-state');
             loaderStage.classList.add('active-loader');
