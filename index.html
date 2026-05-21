@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickael Benlolo | Portfolio & Blog</title>
     <style>
-        /* Sand / Beige Premium Color Theme */
+        /* Sand / Beige & Dark Premium Color Theme */
         :root {
             --bg-color: #fdfbf7;        /* Warm alabaster/white */
             --text-main: #2d2a26;       /* Soft dark charcoal */
             --text-muted: #7a756e;      /* Muted earth tone */
             --border-line: #e8e2d5;     /* Soft sand border */
+            
+            /* Header Space */
+            --header-bg: #121110;       /* Solid deep black/charcoal rectangle */
+            --header-text: #ffffff;
             
             /* Sand Button Palette */
             --sand-primary: #c2b29a;    /* Classic solid sand */
@@ -23,6 +27,8 @@
             --text-main: #f4f1eb;       /* Off-white warm text */
             --text-muted: #968f85;
             --border-line: #2d2a27;
+            
+            --header-bg: #050505;       /* Pitch black header for dark mode */
             
             /* Dark mode sand adjustments */
             --sand-primary: #ddccb3;    /* Brighter sand for dark backgrounds */
@@ -41,50 +47,65 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
+            flex-direction: column;
             min-height: 100vh;
             transition: background-color 0.3s, color 0.3s;
-            overflow-x: hidden; /* Vital to hide the wind strings when they fly off screen */
+            overflow-x: hidden;
         }
 
-        /* Layout Structure */
-        .container {
-            display: flex;
+        /* 1. TOP HEADER RECTANGLE (Takes up top structural space) */
+        .identity-header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
             width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 40px;
-            gap: 80px;
-        }
-
-        /* LEFT NAVIGATION COLUMN */
-        .left-column {
-            width: 240px;
-            flex-shrink: 0;
+            padding: 40px 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid var(--sand-primary);
         }
 
-        .identity {
-            margin-bottom: 40px;
-        }
-
-        .identity h1 {
-            font-size: 1.5rem;
+        .identity-header h1 {
+            font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
         }
 
-        .identity p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+        .identity-header p {
+            font-size: 0.95rem;
+            color: var(--sand-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0;
+        }
+
+        /* MAIN BODY CONTAINER (Holds Left Nav and Right Content Side-by-Side) */
+        .workspace {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            position: relative;
+        }
+
+        /* 2. DOCKED LEFT NAVIGATION COLUMN */
+        .left-dock {
+            width: 260px;
+            border-right: 1px solid var(--border-line);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         /* INTERACTIVE SAND BUTTONS */
@@ -140,16 +161,22 @@
             color: var(--sand-text);
         }
 
-        /* RIGHT CONTENT AREA */
-        .right-column {
+        /* 3. MAIN RIGHT CONTENT MODULE */
+        .right-content-frame {
             flex: 1;
-            max-width: 700px;
-            padding-top: 40px; /* Pushed text down lower */
+            padding: 60px 50px;
+            max-width: 800px;
+            transform-origin: center center; /* Sets pivot point for the collapse effect */
         }
 
-        /* FLOWING CONTENT ANIMATION (Home Text) */
+        /* Dynamic classes controlled by JavaScript for the Smoosh Transition */
+        .smoosh-out {
+            animation: collapseViewport 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        /* GENTLE FLOWING IN ANIMATION (On Initial Load) */
         .flowing-text {
-            animation: textFlowIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: textFlowIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
         }
 
@@ -160,10 +187,11 @@
             letter-spacing: -0.3px;
         }
 
-        p {
+        .flowing-text p {
             font-size: 1rem;
             line-height: 1.7;
             margin-bottom: 20px;
+            color: var(--text-main);
         }
 
         /* FLOATING THEME TOGGLE */
@@ -184,28 +212,16 @@
             z-index: 1000;
         }
 
-        .theme-toggle:hover {
-            transform: translateY(-2px);
-        }
-
-        /* --- SANDY SCREEN OVERLAY & WIND STRINGS --- */
-        .sand-wind-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--sand-primary);
-            z-index: 9999;
+        /* --- THE MIDDLE SMOOSH WIND INTERACTIVE LAYER --- */
+        .mid-wind-belt {
+            position: absolute;
+            top: 45%;
+            left: 260px; /* Aligned exactly out of the docked side panel */
+            right: 0;
+            height: 80px;
             pointer-events: none;
-            opacity: 0;
-            display: none; /* Kept hidden until triggered */
-        }
-
-        /* Dynamic classes controlled by JavaScript */
-        .sand-wind-page.active {
-            display: block;
-            animation: phaseBg 0.7s ease-in-out forwards;
+            z-index: 999;
+            overflow: hidden;
         }
 
         .longfazers {
@@ -215,43 +231,28 @@
             display: none;
         }
 
-        .sand-wind-page.active .longfazers {
+        .active-wind .longfazers {
             display: block;
         }
 
-        /* Sharp black wind strings */
+        /* Pitch Black Strings inside the middle belt */
         .longfazers span {
             position: absolute;
             height: 2px;
-            width: 25%;
-            background: #000000; /* Pure black lines */
+            width: 18%;
+            background: #000000;
         }
 
-        .longfazers span:nth-child(1) {
-            top: 15%;
-            animation: lf 0.5s linear infinite;
-        }
-        .longfazers span:nth-child(2) {
-            top: 35%;
-            animation: lf2 0.6s linear infinite;
-            animation-delay: -0.1s;
-        }
-        .longfazers span:nth-child(3) {
-            top: 55%;
-            animation: lf3 0.5s linear infinite;
-            animation-delay: -0.2s;
-        }
-        .longfazers span:nth-child(4) {
-            top: 75%;
-            animation: lf4 0.4s linear infinite;
-            animation-delay: -0.3s;
-        }
+        .longfazers span:nth-child(1) { top: 15%; animation: lf 0.4s linear infinite; }
+        .longfazers span:nth-child(2) { top: 40%; animation: lf2 0.5s linear infinite; animation-delay: -0.1s; }
+        .longfazers span:nth-child(3) { top: 65%; animation: lf3 0.4s linear infinite; animation-delay: -0.2s; }
+        .longfazers span:nth-child(4) { top: 85%; animation: lf4 0.3s linear infinite; animation-delay: -0.15s; }
 
-        /* KEYFRAMES */
+        /* KEYFRAMES ENGINE */
         @keyframes textFlowIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
@@ -259,65 +260,78 @@
             }
         }
 
-        /* Background overlay alpha-timing */
-        @keyframes phaseBg {
-            0% { opacity: 0; }
-            35% { opacity: 1; }
-            65% { opacity: 1; }
-            100% { opacity: 0; }
+        /* The Viewport Smooshing down into a thin center line */
+        @keyframes collapseViewport {
+            0% {
+                transform: scaleY(1);
+                opacity: 1;
+                filter: blur(0px);
+            }
+            100% {
+                transform: scaleY(0.01);
+                opacity: 0;
+                filter: blur(2px);
+            }
         }
 
-        /* Wind velocity mechanics (Right-to-Left rushing effect) */
+        /* String Velocity Mechanics */
         @keyframes lf {
-            0% { left: 150%; }
-            100% { left: -150%; opacity: 0; }
+            0% { left: 120%; }
+            100% { left: -120%; opacity: 0; }
         }
         @keyframes lf2 {
-            0% { left: 150%; }
-            100% { left: -150%; opacity: 0; }
+            0% { left: 120%; }
+            100% { left: -120%; opacity: 0; }
         }
         @keyframes lf3 {
-            0% { left: 150%; }
+            0% { left: 120%; }
             100% { left: -100%; opacity: 0; }
         }
         @keyframes lf4 {
-            0% { left: 150%; }
+            0% { left: 120%; }
             100% { left: -100%; opacity: 0; }
         }
 
+        /* Responsive Breakpoint */
         @media (max-width: 768px) {
-            .container {
+            .workspace {
                 flex-direction: column;
-                padding: 40px 24px;
-                gap: 40px;
             }
-            .left-column {
+            .left-dock {
                 width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-line);
+            }
+            .mid-wind-belt {
+                left: 0;
+                top: 50%;
             }
         }
     </style>
 </head>
 <body data-theme="light">
 
-    <!-- THE WIND ANIMATION STAGE -->
-    <div class="sand-wind-page" id="windStage">
-        <div class="longfazers">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
+    <!-- 1. IDENTIFICATION HEADER RECTANGLE -->
+    <header class="identity-header">
+        <h1>Mickael Benlolo</h1>
+        <p>AppSec & Pentester</p>
+    </header>
 
-    <div class="container">
+    <!-- WORKSPACE WRAPPER -->
+    <div class="workspace">
         
-        <!-- LEFT-HAND NAVIGATION COLUMN -->
-        <div class="left-column">
-            <div class="identity">
-                <h1>Mickael Benlolo</h1>
-                <p>AppSec & Pentester</p>
+        <!-- MIDDLE BELT RUNWAY FOR THE WIND STRINGS -->
+        <div class="mid-wind-belt" id="windBelt">
+            <div class="longfazers">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            
+        </div>
+
+        <!-- 2. LEFT DOCKED NAVIGATION SIDE PANEL -->
+        <nav class="left-dock">
             <ul class="nav-links">
                 <li>
                     <a class="nav-btn-solid" href="index.html" onclick="triggerHomeFlow(event)">
@@ -345,16 +359,16 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </nav>
 
-        <!-- RIGHT-HAND CONTENT WINDOW -->
-        <div class="right-column">
+        <!-- 3. RIGHT CONTENT VIEWPORT FRAME -->
+        <main class="right-content-frame" id="contentFrame">
             <div class="flowing-text" id="homeText">
                 <h2>Hello.</h2>
                 <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
                 <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
             </div>
-        </div>
+        </main>
 
     </div>
 
@@ -364,35 +378,39 @@
     </button>
 
     <script>
-        // Smoothly resets and replays the text flow animation
+        // Smoothly resets and replays the text flow animation inside the home window
         function triggerHomeFlow(event) {
             event.preventDefault();
             const textElement = document.getElementById('homeText');
             
             textElement.style.animation = 'none';
-            textElement.offsetHeight; // Forces browser reflow instantly
-            textElement.style.animation = 'textFlowIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+            textElement.offsetHeight; // Force instant layout recalculation
+            textElement.style.animation = 'textFlowIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards';
         }
 
-        // Optimized Wind Transition Engine (Fixed repetition bug)
+        // The "Smoosh & Wind" Transition Module
         function transitionPage(event, targetUrl) {
             event.preventDefault();
-            const stage = document.getElementById('windStage');
             
-            // Clean up old instances to ensure it fires smoothly every click
-            stage.classList.remove('active');
-            stage.offsetHeight; // Force mechanical browser layout calculation
+            const contentFrame = document.getElementById('contentFrame');
+            const windBelt = document.getElementById('windBelt');
             
-            // Re-arm animation
-            stage.classList.add('active');
+            // 1. Reset state instantly to support endless repeating clicks cleanly
+            contentFrame.classList.remove('smoosh-out');
+            windBelt.classList.remove('active-wind');
+            contentFrame.offsetHeight; // Structural reflow
             
-            // Route to target file precisely while screen is fully masked
+            // 2. Fire the Viewport vertical collapse and turn on the wind string belt
+            contentFrame.classList.add('smoosh-out');
+            windBelt.classList.add('active-wind');
+            
+            // 3. Jump to the next target file while the module is completely flat
             setTimeout(() => {
                 window.location.href = targetUrl;
-            }, 400); 
+            }, 450); 
         }
 
-        // Theme Toggle Engine
+        // Dark/Light Mode Theme Toggle
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
