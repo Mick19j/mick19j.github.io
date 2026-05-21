@@ -17,3 +17,9 @@ Welcome to my portfolio. I am an offensive security professional specializing in
 * **GitHub:** [github.com/Mick19j](https://github.com/Mick19j)
 
 TESTETSTESTSETEST
+theme: jekyll-theme-minimal
+title: Mickael's Portfolio
+description: Cybersecurity portfolio and offensive security research blog.
+header_pages:
+  - index.md
+  - attacks.md
