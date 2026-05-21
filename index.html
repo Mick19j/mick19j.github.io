@@ -5,43 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickael Benlolo | Portfolio & Blog</title>
     <style>
-        /* Deep Blue Accent Theme Mapping */
+        /* Deep Blue Accent & Hacker Green Theme Mapping */
         :root {
             --bg-color: #ffffff;        /* Pure White Background */
             --text-main: #000000;       /* Solid Black Text */
-            --border-line: #000000;     /* Line Borders */
+            --border-line: #101c2c;     /* Dark Blue Line Borders */
             
             /* Theme Core Brand Colors */
             --brand-blue: #101c2c;      /* Deep Dark Navy Blue */
             --header-text: #ffffff;     /* White Text on Navy */
-            
-            /* Button Component Mappings (Light Mode) */
-            --btn-solid-bg: var(--brand-blue);
-            --btn-solid-border: var(--brand-blue);
-            --btn-solid-text: #ffffff;
-            --btn-solid-hover-text: var(--brand-blue);
-            
-            --btn-outline-border: var(--brand-blue);
-            --btn-outline-text: var(--brand-blue);
-            --btn-outline-hover-bg: var(--brand-blue);
-            --btn-outline-hover-text: #ffffff;
+            --terminal-green: #00ff00;  /* Kali/Hacker Green */
         }
 
         [data-theme="dark"] {
             --bg-color: #000000;        /* Pitch Black Background */
             --text-main: #ffffff;       /* Pure White Text */
             --border-line: #ffffff;     /* White Line Borders */
-            
-            /* Button Component Mappings (Dark Mode) */
-            --btn-solid-bg: #ffffff;
-            --btn-solid-border: #ffffff;
-            --btn-solid-text: #000000;
-            --btn-solid-hover-text: #ffffff;
-            
-            --btn-outline-border: #ffffff;
-            --btn-outline-text: #ffffff;
-            --btn-outline-hover-bg: #ffffff;
-            --btn-outline-hover-text: #000000;
         }
 
         * {
@@ -61,22 +40,34 @@
             overflow-x: hidden;
         }
 
-        /* 1. TOP BRAND HEADER - THREE-POINT REALIGNMENT */
+        /* 1. TOP BRAND HEADER - ENLARGED & LEFT-ALIGNED IDENTITY */
         .identity-header {
             background-color: var(--brand-blue);
             color: var(--header-text);
             width: 100%;
-            padding: 24px 40px;
+            padding: 40px; /* Made bigger as requested */
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             align-items: center;
             border-bottom: 2px solid var(--border-line);
         }
 
-        /* Left-aligned Identity Group */
+        /* Left side: Vertical Stack for Profile, Name, and Track */
         .header-left {
             display: flex;
-            justify-content: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .avatar-slot {
+            width: 75px; /* Slightly larger scale to balance the larger header */
+            height: 75px;
+            border-radius: 50%;
+            border: 2px solid var(--terminal-green);
+            background-color: #1a2c44;
+            background-size: cover;
+            background-position: center;
         }
 
         .identity-header h1 {
@@ -84,38 +75,26 @@
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
+            color: #ffffff;
         }
 
-        /* Center-aligned Functional Track */
+        .identity-header p.track-title {
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--terminal-green); /* Themed title text to hacker green */
+        }
+
+        /* Center block explicitly erased and left blank */
         .header-center {
             display: flex;
             justify-content: center;
         }
 
-        .identity-header p.track-title {
-            font-size: 0.95rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        /* Right-aligned Avatar Chassis */
         .header-right {
             display: flex;
             justify-content: flex-end;
-        }
-
-        .avatar-slot {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            border: 2px solid #ffffff;
-            background-color: #1a2c44;
-            /* Placeholder graphic setup - replace background style entirely when ready with: background-image: url('your-path.jpg'); */
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
         }
 
         /* WORKSPACE DISPLAY AREA */
@@ -126,9 +105,10 @@
             position: relative;
         }
 
-        /* 2. DOCKED LEFT SIDE NAVIGATION */
+        /* 2. DOCKED LEFT SIDE NAVIGATION - UNIFIED WITH HEADER DARK BLUE */
         .left-dock {
             width: 260px;
+            background-color: var(--brand-blue); /* Filled with dark blue */
             border-right: 2px solid var(--border-line);
             padding: 40px 24px;
             display: flex;
@@ -141,65 +121,76 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 18px; /* Increased padding slightly to reward the larger buttons */
         }
 
-        /* TRANSLATED BUTTON ARCHITECTURE (NO SVG / NO BADGES) */
-        .nav-btn-solid, .nav-btn-outline {
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Balanced clean internal alignment */
-            border-radius: 8px; 
-            padding: 12px 20px; 
-            text-decoration: none;
+        /* 3. GLITCH BUTTON ARCHITECTURE (COMPILED FROM UIVERSE SPEC) */
+        [class*="btn-glitch-"] {
+            display: inline-block;
+            font-family: "Courier New", Courier, monospace; /* Clean fallbacks for VT323 hacker tone */
+            border: 1px solid var(--terminal-green);
+            color: var(--terminal-green);
+            padding: 12px 15px;
+            min-width: 175px;
+            line-height: 1.5em;
+            white-space: nowrap;
+            text-transform: uppercase;
             cursor: pointer;
-            width: 100%;
-            transition: background-color 0.2s, border-color 0.2s;
+            border-radius: 15px;
+            text-decoration: none;
+            text-align: center;
+            background: transparent;
+            transition: background-color 0.1s;
         }
 
-        .nav-btn-solid span.btn-label, .nav-btn-outline span.btn-label {
-            font-weight: 500;
-            transition: color 0.2s;
+        [class*="btn-glitch-"] .text {
+            display: inline-block;
         }
 
-        /* Home / Active Layout Structure */
-        .nav-btn-solid {
-            background-color: var(--btn-solid-bg);
-            border: 1px solid var(--btn-solid-border);
+        /* Hover & Focus state execution with raw color flashes */
+        [class*="btn-glitch-"]:hover,
+        [class*="btn-glitch-"]:focus {
+            animation-name: glitch;
+            animation-duration: 0.2s;
+            background-color: #ffff00; /* Snaps to yellow */
+            color: #000000;            /* Text goes black */
+            border: 1px solid #ffff00;
         }
 
-        .nav-btn-solid span.btn-label {
-            color: var(--btn-solid-text);
+        /* Active click compression state mapping */
+        [class*="btn-glitch-"]:active {
+            background: none;
+            color: #ffff00;
+            border: 1px solid #ffff00;
         }
 
-        .nav-btn-solid:hover {
-            background-color: transparent;
+        /* Glitch Keyframe Sequence */
+        @keyframes glitch {
+            25% {
+                background-color: #ff0000;
+                transform: translateX(-10px);
+                letter-spacing: 6px;
+            }
+            35% {
+                background-color: #00ff00;
+                transform: translate(10px);
+            }
+            59% {
+                opacity: 0;
+            }
+            60% {
+                background-color: #0000ff;
+                transform: translate(-10px);
+                filter: blur(2px);
+            }
+            100% {
+                background-color: #ffff00;
+                filter: blur(0px);
+            }
         }
 
-        .nav-btn-solid:hover span.btn-label {
-            color: var(--btn-solid-hover-text);
-        }
 
-        /* Sub-link Navigation Item Structures */
-        .nav-btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--btn-outline-border);
-        }
-
-        .nav-btn-outline span.btn-label {
-            color: var(--btn-outline-text);
-        }
-
-        .nav-btn-outline:hover {
-            background-color: var(--btn-outline-hover-bg);
-        }
-
-        .nav-btn-outline:hover span.btn-label {
-            color: var(--btn-outline-hover-text);
-        }
-
-
-        /* 3. CENTERED CONTENT FRAME & OPTICAL LOAD ALIGNMENTS */
+        /* 4. CENTERED CONTENT FRAME & OPTICAL LOAD ALIGNMENTS */
         .right-content-frame {
             flex: 1;
             padding: 60px;
@@ -247,7 +238,7 @@
             margin-bottom: 20px;
         }
 
-        /* --- UIverse FROM USER SOURCE STYLE SPECIFICATION --- */
+        /* UIverse Day/Night Switch Engine Positioning */
         .switch-frame-fixed {
             position: fixed;
             bottom: 40px;
@@ -287,7 +278,7 @@
         #toggle:checked + svg #stars { opacity: 1; }
 
 
-        /* --- OPTICAL CENTERED MATRIX TRACK LOADER --- */
+        /* OPTICAL MATRIX INTERFACE TRAFFIC LOADER */
         .matrix-stage-overlay {
             display: none;
             width: 100%;
@@ -311,12 +302,12 @@
         }
 
         .digit {
-            color: var(--text-main);
+            color: var(--terminal-green);
             font-family: monospace;
             font-size: 22px;
             font-weight: bold;
             text-align: center;
-            text-shadow: 0 0 4px var(--text-main);
+            text-shadow: 0 0 6px var(--terminal-green);
             animation: matrix-fall 1.5s infinite, matrix-flicker 0.5s infinite;
             opacity: 0;
         }
@@ -344,12 +335,12 @@
         @media (max-width: 768px) {
             .identity-header {
                 grid-template-columns: 1fr;
-                gap: 16px;
-                text-align: center;
+                gap: 20px;
                 padding: 30px 20px;
             }
-            .header-left, .header-center, .header-right {
-                justify-content: center;
+            .header-left {
+                align-items: center;
+                text-align: center;
             }
             .workspace { flex-direction: column; }
             .left-dock {
@@ -365,17 +356,18 @@
 </head>
 <body data-theme="light">
 
-    <!-- 1. IDENTIFICATION THREE-POINT GRID HEADER -->
+    <!-- 1. IDENTIFICATION ARCHITECTURE (LEFT STACKED) -->
     <header class="identity-header">
         <div class="header-left">
+            <div class="avatar-slot"></div>
             <h1>Mickael Benlolo</h1>
-        </div>
-        <div class="header-center">
             <p class="track-title">AppSec & Pentester</p>
         </div>
+        <div class="header-center">
+            <!-- Left blank intentionally -->
+        </div>
         <div class="header-right">
-            <!-- Round profile tracking node slot -->
-            <div class="avatar-slot"></div>
+            <!-- Left blank intentionally / padding ballast -->
         </div>
     </header>
 
@@ -386,28 +378,28 @@
         <nav class="left-dock">
             <ul class="nav-links">
                 <li>
-                    <a class="nav-btn-solid" href="index.html" onclick="resetHomeView(event)">
-                        <span class="btn-label">Home</span>
+                    <a class="btn-glitch-home" href="index.html" onclick="resetHomeView(event)">
+                        <span class="text">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="about.html" onclick="runMatrixRoute(event, this.href)">
-                        <span class="btn-label">About Me</span>
+                    <a class="btn-glitch-about" href="about.html" onclick="runMatrixRoute(event, this.href)">
+                        <span class="text">About Me</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="blog.html" onclick="runMatrixRoute(event, this.href)">
-                        <span class="btn-label">Blog</span>
+                    <a class="btn-glitch-blog" href="blog.html" onclick="runMatrixRoute(event, this.href)">
+                        <span class="text">Blog</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="certificates.html" onclick="runMatrixRoute(event, this.href)">
-                        <span class="btn-label">Certificates</span>
+                    <a class="btn-glitch-cert" href="certificates.html" onclick="runMatrixRoute(event, this.href)">
+                        <span class="text">Certificates</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="contact.html" onclick="runMatrixRoute(event, this.href)">
-                        <span class="btn-label">Contact</span>
+                    <a class="btn-glitch-contact" href="contact.html" onclick="runMatrixRoute(event, this.href)">
+                        <span class="text">Contact</span>
                     </a>
                 </li>
             </ul>
@@ -419,7 +411,7 @@
             <!-- CENTRAL OPTICAL CONTAINMENT CHASSIS -->
             <div class="center-axis-container">
                 
-                <!-- MATRIX ROUTING LOADER (Inherits perfect layout geometry alignment) -->
+                <!-- MATRIX ROUTING LOADER -->
                 <div class="matrix-stage-overlay" id="matrixStage">
                     <div class="ai-matrix-loader">
                         <div class="digit">1</div>
