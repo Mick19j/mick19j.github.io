@@ -15,9 +15,10 @@
             --header-bg: #000000;
             --header-text: #ffffff;
             
-            /* Dynamic Button Colors */
-            --btn-bg: #000000;
-            --btn-text: #ffffff;
+            /* Dynamic Button Colors (Light Mode) */
+            --btn-solid-bg: #000000;
+            --btn-solid-text: #ffffff;
+            --btn-outline-text: #000000;
         }
 
         [data-theme="dark"] {
@@ -28,8 +29,10 @@
             --header-bg: #ffffff;
             --header-text: #000000;
             
-            --btn-bg: #ffffff;
-            --btn-text: #000000;
+            /* Dynamic Button Colors (Dark Mode) */
+            --btn-solid-bg: #ffffff;
+            --btn-solid-text: #000000;
+            --btn-outline-text: #ffffff;
         }
 
         * {
@@ -78,7 +81,7 @@
             text-transform: uppercase;
         }
 
-        /* WORKSPACE GRID */
+        /* WORKSPACE MATRIX WINDOW */
         .workspace {
             display: flex;
             flex: 1;
@@ -103,30 +106,30 @@
             gap: 14px;
         }
 
-        /* INTERACTIVE BLACK & WHITE BUTTONS */
+        /* RE-ENGINEERED COMPONENT STYLE INTERACTIVE BUTTONS (Matching your markup logic) */
         .nav-btn-solid, .nav-btn-outline {
             display: flex;
             align-items: center;
-            justify-content: center; /* Center-aligned label text */
-            border-radius: 4px;
-            padding: 12px 20px;
+            justify-content: space-between;
+            gap: 16px;
+            border-radius: 8px; /* rounded-lg */
+            padding: 12px 20px; /* px-5 py-3 */
             text-decoration: none;
             cursor: pointer;
             width: 100%;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+            transition: background-color 0.2s, border-color 0.2s;
         }
 
+        /* Solid Type Layout */
         .nav-btn-solid {
-            border: 2px solid var(--border-line);
-            background-color: var(--btn-bg);
+            border: 1px solid var(--border-line);
+            background-color: var(--btn-solid-bg);
         }
 
         .nav-btn-solid span {
-            font-weight: 600;
-            color: var(--btn-text);
+            font-weight: 500; /* font-medium */
+            color: var(--btn-solid-text);
+            transition: color 0.2s;
         }
 
         .nav-btn-solid:hover {
@@ -137,42 +140,43 @@
             color: var(--text-main);
         }
 
+        /* Outline Type Layout */
         .nav-btn-outline {
-            border: 2px solid var(--border-line);
+            border: 1px solid var(--border-line);
             background-color: transparent;
         }
 
         .nav-btn-outline span {
-            font-weight: 600;
-            color: var(--text-main);
+            font-weight: 500; /* font-medium */
+            color: var(--btn-outline-text);
+            transition: color 0.2s;
         }
 
         .nav-btn-outline:hover {
-            background-color: var(--btn-bg);
+            background-color: var(--btn-solid-bg);
         }
 
         .nav-btn-outline:hover span {
-            color: var(--btn-text);
+            color: var(--btn-solid-text);
         }
 
-        /* 3. CENTERED RIGHT CONTENT VIEWPORT FRAME */
+        /* 3. CENTERED CONTENT FRAME (Aligned exactly down from the header midline) */
         .right-content-frame {
             flex: 1;
             padding: 60px;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Vertically centered content */
-            align-items: center;      /* Horizontally centered content */
-            text-align: center;       /* Center paragraph blocks */
+            justify-content: center; /* Vertical center alignment */
+            align-items: center;      /* Horizontal center alignment */
             position: relative;
         }
 
         .flowing-text {
             max-width: 600px;
             width: 100%;
+            text-align: center; /* Centers text block elements directly in the middle */
         }
 
-        /* Hide text wrapper when Matrix overlay fires */
         .flowing-text.hidden-state {
             opacity: 0;
             pointer-events: none;
@@ -211,10 +215,10 @@
             z-index: 1000;
         }
 
-        /* --- AI MATRIX LOADER SYSTEM INTERACTION CONTAINER --- */
+        /* --- MATRIX OVERLAY --- */
         .matrix-stage-overlay {
             position: absolute;
-            display: none; /* Keeps hidden until click engine triggers */
+            display: none;
             justify-content: center;
             align-items: center;
             top: 0;
@@ -228,7 +232,6 @@
             display: flex;
         }
 
-        /* UIverse.io Snippet Implementation styling */
         .ai-matrix-loader {
             width: 120px;
             height: 160px;
@@ -269,7 +272,7 @@
             animation: matrix-pulse 1.5s infinite;
         }
 
-        /* MATRIX ENGINE KEYFRAMES */
+        /* MATRIX ACTIONS */
         @keyframes matrix-fall {
             0% {
                 transform: translateY(-40px) rotateX(90deg);
@@ -313,7 +316,7 @@
         <p>AppSec & Pentester</p>
     </header>
 
-    <!-- MAIN DASHBOARD SPACE -->
+    <!-- MAIN INTERACTIVE WORKSPACE -->
     <div class="workspace">
         
         <!-- 2. DOCKED LEFT NAVIGATION SIDE PANEL -->
@@ -347,10 +350,10 @@
             </ul>
         </nav>
 
-        <!-- 3. CENTERED CONTENT WINDOW WITH INTERACTIVE MATRIX OVERLAY -->
+        <!-- 3. MAIN CONTENT WINDOW AREA -->
         <main class="right-content-frame">
             
-            <!-- THE MATRIX STREAM MATRIX LOAD AREA -->
+            <!-- THE MATRIX STREAM CHASSIS -->
             <div class="matrix-stage-overlay" id="matrixStage">
                 <div class="ai-matrix-loader">
                     <div class="glow"></div>
@@ -365,7 +368,7 @@
                 </div>
             </div>
 
-            <!-- VIEWPORT TEXT DISPLAY -->
+            <!-- VIEWPORT CONTENT TEXT WINDOW (Centered aligned relative to top heading) -->
             <div class="flowing-text" id="mainDisplay">
                 <h2>Hello.</h2>
                 <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
@@ -378,11 +381,12 @@
 
     <!-- FLOATING THEME TOGGLE BUTTON -->
     <button class="theme-toggle" onclick="toggleTheme()">
-        🌓 <span id="theme-text">Dark Mode</span>
+        <!-- Stark text based toggle to match the B&W look -->
+        <span id="theme-text">Dark Mode</span>
     </button>
 
     <script>
-        // Restores home text seamlessly if clicking Home link again
+        // Cleanly clears animation status and resets text view
         function resetHomeView(event) {
             event.preventDefault();
             const textFrame = document.getElementById('mainDisplay');
@@ -392,29 +396,29 @@
             textFrame.classList.remove('hidden-state');
         }
 
-        // The Digital Matrix Navigation Engine
+        // The Matrix Routing Execution Engine
         function runMatrixRoute(event, targetUrl) {
             event.preventDefault();
             
             const textFrame = document.getElementById('mainDisplay');
             const loaderStage = document.getElementById('matrixStage');
             
-            // 1. Force state reset instantly to clear any older cycles
+            // Clean active classes to clear previous event tracks
             loaderStage.classList.remove('active-loader');
             textFrame.classList.remove('hidden-state');
-            textFrame.offsetHeight; // Force instant layout clear
+            textFrame.offsetHeight; // layout clear reflow trigger
             
-            // 2. Hide text block and instantly display the green streaming grid code matrix
+            // Apply hide transformations and trigger green grid stream loader
             textFrame.classList.add('hidden-state');
             loaderStage.classList.add('active-loader');
             
-            // 3. Jump to the selected standalone HTML file
+            // Transition out to standalone modular page 
             setTimeout(() => {
                 window.location.href = targetUrl;
             }, 850); 
         }
 
-        // High contrast Light/Dark execution block
+        // Black and White high-contrast toggle layout script
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
