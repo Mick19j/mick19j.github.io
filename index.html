@@ -5,30 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickael Benlolo | Portfolio & Blog</title>
     <style>
-        /* Deep Blue Header & Monochrome Interface Theme */
+        /* Deep Blue Accent Theme Mapping */
         :root {
             --bg-color: #ffffff;        /* Pure White Background */
             --text-main: #000000;       /* Solid Black Text */
             --border-line: #000000;     /* Line Borders */
             
-            /* Custom Blocks & Accents */
-            --header-bg: #101c2c;       /* Deep Dark Blue */
-            --header-text: #ffffff;     /* White Text on Blue */
+            /* Theme Core Brand Colors */
+            --brand-blue: #101c2c;      /* Deep Dark Navy Blue */
+            --header-text: #ffffff;     /* White Text on Navy */
             
-            /* Button Theme Mapping (Light Mode) */
-            --btn-solid-bg: #000000;
-            --btn-solid-border: #000000;
+            /* Button Component Mappings (Light Mode) */
+            --btn-solid-bg: var(--brand-blue);
+            --btn-solid-border: var(--brand-blue);
             --btn-solid-text: #ffffff;
-            --btn-solid-hover-text: #000000;
+            --btn-solid-hover-text: var(--brand-blue);
             
-            --btn-outline-border: #000000;
-            --btn-outline-text: #000000;
-            --btn-outline-hover-bg: #000000;
+            --btn-outline-border: var(--brand-blue);
+            --btn-outline-text: var(--brand-blue);
+            --btn-outline-hover-bg: var(--brand-blue);
             --btn-outline-hover-text: #ffffff;
-            
-            --badge-bg: #ffffff;
-            --badge-border: #000000;
-            --badge-dot: #000000;
         }
 
         [data-theme="dark"] {
@@ -36,7 +32,7 @@
             --text-main: #ffffff;       /* Pure White Text */
             --border-line: #ffffff;     /* White Line Borders */
             
-            /* Button Theme Mapping (Dark Mode) */
+            /* Button Component Mappings (Dark Mode) */
             --btn-solid-bg: #ffffff;
             --btn-solid-border: #ffffff;
             --btn-solid-text: #000000;
@@ -46,10 +42,6 @@
             --btn-outline-text: #ffffff;
             --btn-outline-hover-bg: #ffffff;
             --btn-outline-hover-text: #000000;
-            
-            --badge-bg: #000000;
-            --badge-border: #ffffff;
-            --badge-dot: #ffffff;
         }
 
         * {
@@ -69,36 +61,64 @@
             overflow-x: hidden;
         }
 
-        /* 1. TOP DEEP BLUE HEADER RECTANGLE */
+        /* 1. TOP BRAND HEADER - THREE-POINT REALIGNMENT */
         .identity-header {
-            background-color: var(--header-bg);
+            background-color: var(--brand-blue);
             color: var(--header-text);
             width: 100%;
-            padding: 40px 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 24px 40px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
             border-bottom: 2px solid var(--border-line);
         }
 
+        /* Left-aligned Identity Group */
+        .header-left {
+            display: flex;
+            justify-content: flex-start;
+        }
+
         .identity-header h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 6px;
         }
 
-        .identity-header p {
+        /* Center-aligned Functional Track */
+        .header-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .identity-header p.track-title {
             font-size: 0.95rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: #ffffff;
+            font-weight: 500;
         }
 
-        /* WORKSPACE MATRIX WINDOW */
+        /* Right-aligned Avatar Chassis */
+        .header-right {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .avatar-slot {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            background-color: #1a2c44;
+            /* Placeholder graphic setup - replace background style entirely when ready with: background-image: url('your-path.jpg'); */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* WORKSPACE DISPLAY AREA */
         .workspace {
             display: flex;
             flex: 1;
@@ -124,12 +144,11 @@
             gap: 14px;
         }
 
-        /* CUSTOM TRANSLATED BUTTON COMPONENTS */
+        /* TRANSLATED BUTTON ARCHITECTURE (NO SVG / NO BADGES) */
         .nav-btn-solid, .nav-btn-outline {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 16px;
+            justify-content: center; /* Balanced clean internal alignment */
             border-radius: 8px; 
             padding: 12px 20px; 
             text-decoration: none;
@@ -143,29 +162,7 @@
             transition: color 0.2s;
         }
 
-        /* Circular tracking badge component (Replaces the arrow) */
-        .badge-marker {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 1px solid var(--badge-border);
-            background-color: var(--badge-bg);
-            transition: transform 0.2s;
-        }
-
-        .badge-marker::after {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--badge-dot);
-        }
-
-        /* Type A: Active/Home Solid Button Layout */
+        /* Home / Active Layout Structure */
         .nav-btn-solid {
             background-color: var(--btn-solid-bg);
             border: 1px solid var(--btn-solid-border);
@@ -183,11 +180,7 @@
             color: var(--btn-solid-hover-text);
         }
 
-        .nav-btn-solid:hover .badge-marker {
-            transform: scale(1.1);
-        }
-
-        /* Type B: Secondary Outline Button Layout */
+        /* Sub-link Navigation Item Structures */
         .nav-btn-outline {
             background-color: transparent;
             border: 1px solid var(--btn-outline-border);
@@ -205,12 +198,8 @@
             color: var(--btn-outline-hover-text);
         }
 
-        .nav-btn-outline:hover .badge-marker {
-            transform: scale(1.1);
-        }
 
-
-        /* 3. CENTERED CONTENT FRAME & LOADING AXIS */
+        /* 3. CENTERED CONTENT FRAME & OPTICAL LOAD ALIGNMENTS */
         .right-content-frame {
             flex: 1;
             padding: 60px;
@@ -221,7 +210,6 @@
             position: relative;
         }
 
-        /* Keeps the text frame and the loader on the exact same central alignment path */
         .center-axis-container {
             max-width: 600px;
             width: 100%;
@@ -242,7 +230,7 @@
         .flowing-text.hidden-state {
             opacity: 0;
             pointer-events: none;
-            position: absolute; /* Takes out of flow cleanly so loader inherits exact true center */
+            position: absolute;
         }
 
         h2 {
@@ -299,7 +287,7 @@
         #toggle:checked + svg #stars { opacity: 1; }
 
 
-        /* --- REALIGNED MATRIX STAGE LOADER --- */
+        /* --- OPTICAL CENTERED MATRIX TRACK LOADER --- */
         .matrix-stage-overlay {
             display: none;
             width: 100%;
@@ -323,7 +311,7 @@
         }
 
         .digit {
-            color: var(--text-main); /* Switches cleanly between black or white depending on theme */
+            color: var(--text-main);
             font-family: monospace;
             font-size: 22px;
             font-weight: bold;
@@ -354,6 +342,15 @@
         }
 
         @media (max-width: 768px) {
+            .identity-header {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .header-left, .header-center, .header-right {
+                justify-content: center;
+            }
             .workspace { flex-direction: column; }
             .left-dock {
                 width: 100%;
@@ -368,10 +365,18 @@
 </head>
 <body data-theme="light">
 
-    <!-- 1. IDENTIFICATION HEADER RECTANGLE (DARK DEEP BLUE) -->
+    <!-- 1. IDENTIFICATION THREE-POINT GRID HEADER -->
     <header class="identity-header">
-        <h1>Mickael Benlolo</h1>
-        <p>AppSec & Pentester</p>
+        <div class="header-left">
+            <h1>Mickael Benlolo</h1>
+        </div>
+        <div class="header-center">
+            <p class="track-title">AppSec & Pentester</p>
+        </div>
+        <div class="header-right">
+            <!-- Round profile tracking node slot -->
+            <div class="avatar-slot"></div>
+        </div>
     </header>
 
     <!-- MAIN INTERACTIVE WORKSPACE -->
@@ -383,31 +388,26 @@
                 <li>
                     <a class="nav-btn-solid" href="index.html" onclick="resetHomeView(event)">
                         <span class="btn-label">Home</span>
-                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="about.html" onclick="runMatrixRoute(event, this.href)">
                         <span class="btn-label">About Me</span>
-                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="blog.html" onclick="runMatrixRoute(event, this.href)">
                         <span class="btn-label">Blog</span>
-                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="certificates.html" onclick="runMatrixRoute(event, this.href)">
                         <span class="btn-label">Certificates</span>
-                        <span class="badge-marker"></span>
                     </a>
                 </li>
                 <li>
                     <a class="nav-btn-outline" href="contact.html" onclick="runMatrixRoute(event, this.href)">
                         <span class="btn-label">Contact</span>
-                        <span class="badge-marker"></span>
                     </a>
                 </li>
             </ul>
@@ -416,10 +416,10 @@
         <!-- 3. MAIN CONTENT WINDOW AREA -->
         <main class="right-content-frame">
             
-            <!-- CENTRAL FRAMING CHASSIS (Houses both views along the exact same optical axis) -->
+            <!-- CENTRAL OPTICAL CONTAINMENT CHASSIS -->
             <div class="center-axis-container">
                 
-                <!-- THE REALIGNED MATRIX STREAM CHASSIS -->
+                <!-- MATRIX ROUTING LOADER (Inherits perfect layout geometry alignment) -->
                 <div class="matrix-stage-overlay" id="matrixStage">
                     <div class="ai-matrix-loader">
                         <div class="digit">1</div>
@@ -446,7 +446,7 @@
 
     </div>
 
-    <!-- 4. FLOATING INTERACTIVE SVG TOGGLE INTERFACE (BOTTOM RIGHT) -->
+    <!-- 4. FLOATING INTERACTIVE SVG TOGGLE INTERFACE -->
     <div class="switch-frame-fixed">
         <label id="theme-toggle-button" for="toggle">
             <input type="checkbox" id="toggle" onchange="toggleTheme()">
@@ -490,7 +490,7 @@
             
             loaderStage.classList.remove('active-loader');
             textFrame.classList.remove('hidden-state');
-            textFrame.offsetHeight; // Forces browser repaint
+            textFrame.offsetHeight; 
             
             textFrame.classList.add('hidden-state');
             loaderStage.classList.add('active-loader');
