@@ -43,6 +43,7 @@
             display: flex;
             min-height: 100vh;
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden; /* Prevent wind animation from creating scrollbars */
         }
 
         /* Layout Structure */
@@ -83,23 +84,26 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px; /* Margins for button spacing */
+            gap: 12px;
         }
 
-        /* THE CUSTOM INTERACTIVE SAND BUTTONS */
-        .nav-btn-solid {
+        /* INTERACTIVE SAND BUTTONS */
+        .nav-btn-solid, .nav-btn-outline {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            border-radius: 8px; /* rounded-lg */
-            border: 1px solid var(--sand-primary);
-            background-color: var(--sand-primary);
-            padding: 12px 20px; /* px-5 py-3 */
+            border-radius: 8px;
+            padding: 12px 20px;
             text-decoration: none;
-            transition: background-color 0.25s, border-color 0.25s;
             cursor: pointer;
             width: 100%;
+            transition: background-color 0.25s, border-color 0.25s;
+        }
+
+        .nav-btn-solid {
+            border: 1px solid var(--sand-primary);
+            background-color: var(--sand-primary);
         }
 
         .nav-btn-solid span {
@@ -118,18 +122,8 @@
         }
 
         .nav-btn-outline {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            border-radius: 8px; /* rounded-lg */
             border: 1px solid var(--sand-primary);
             background-color: transparent;
-            padding: 12px 20px; /* px-5 py-3 */
-            text-decoration: none;
-            transition: background-color 0.25s, border-color 0.25s;
-            cursor: pointer;
-            width: 100%;
         }
 
         .nav-btn-outline span {
@@ -146,11 +140,17 @@
             color: var(--sand-text);
         }
 
-
         /* RIGHT CONTENT AREA */
         .right-column {
             flex: 1;
             max-width: 700px;
+            padding-top: 40px; /* Pushed the text a little lower as requested */
+        }
+
+        /* FLOWING CONTENT ANIMATION (For Home Text) */
+        .flowing-text {
+            animation: textFlowIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
         }
 
         h2 {
@@ -188,6 +188,52 @@
             transform: translateY(-2px);
         }
 
+        /* SAND WIND PAGE TRANSITION OVERLAY */
+        .sand-wind-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--sand-primary);
+            z-index: 9999;
+            transform: translateX(-100%);
+            pointer-events: none; /* Allows clicking through when inactive */
+        }
+
+        /* Wind Animation Trigger Class */
+        .wind-blowing {
+            animation: sandWindEffect 0.75s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+
+        /* Keyframes for Home Text Flowing In */
+        @keyframes textFlowIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframes for the Sand Wind transition across the screen */
+        @keyframes sandWindEffect {
+            0% {
+                transform: translateX(-100%);
+            }
+            45% {
+                transform: translateX(0%);
+            }
+            55% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -202,6 +248,9 @@
 </head>
 <body data-theme="light">
 
+    <!-- THE WIND ANIMATION LAYER -->
+    <div class="sand-wind-overlay" id="windOverlay"></div>
+
     <div class="container">
         
         <!-- LEFT-HAND NAVIGATION COLUMN -->
@@ -211,30 +260,30 @@
                 <p>AppSec & Pentester</p>
             </div>
             
-            <!-- Links now point directly to future separate files -->
             <ul class="nav-links">
                 <li>
-                    <a class="nav-btn-solid" href="index.html">
+                    <!-- Home has a custom reload click to showcase the text flowing animation -->
+                    <a class="nav-btn-solid" href="index.html" onclick="triggerHomeFlow(event)">
                         <span>Home</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="about.html">
+                    <a class="nav-btn-outline" href="about.html" onclick="transitionPage(event, this.href)">
                         <span>About Me</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="blog.html">
+                    <a class="nav-btn-outline" href="blog.html" onclick="transitionPage(event, this.href)">
                         <span>Blog</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="certificates.html">
+                    <a class="nav-btn-outline" href="certificates.html" onclick="transitionPage(event, this.href)">
                         <span>Certificates</span>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-btn-outline" href="contact.html">
+                    <a class="nav-btn-outline" href="contact.html" onclick="transitionPage(event, this.href)">
                         <span>Contact</span>
                     </a>
                 </li>
@@ -243,9 +292,11 @@
 
         <!-- RIGHT-HAND CONTENT WINDOW (HOME ONLY) -->
         <div class="right-column">
-            <h2>Hello.</h2>
-            <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
-            <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
+            <div class="flowing-text" id="homeText">
+                <h2>Hello.</h2>
+                <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
+                <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
+            </div>
         </div>
 
     </div>
@@ -256,6 +307,32 @@
     </button>
 
     <script>
+        // Smoothly flows the text back in if they click Home while already on index
+        function triggerHomeFlow(event) {
+            event.preventDefault();
+            const textElement = document.getElementById('homeText');
+            
+            // Reset the animation class
+            textElement.style.animation = 'none';
+            textElement.offsetHeight; // Trigger reflow to restart animation
+            textElement.style.animation = 'textFlowIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+        }
+
+        // The Wind Transition Engine
+        function transitionPage(event, targetUrl) {
+            event.preventDefault(); // Stop instant redirecting
+            const overlay = document.getElementById('windOverlay');
+            
+            // Start the wind animation
+            overlay.classList.add('wind-blowing');
+            
+            // Halfway through the animation (when screen is completely sand-colored), change the page
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 350); 
+        }
+
+        // Theme Engine
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
