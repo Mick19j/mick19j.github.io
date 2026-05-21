@@ -5,34 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickael Benlolo | Portfolio & Blog</title>
     <style>
-        /* Stark Black & White Minimalist Theme */
+        /* Matrix-Infused Deep Blue & Terminal Green Theme */
         :root {
-            --bg-color: #ffffff;        /* Pure White */
+            --bg-color: #ffffff;        /* Pure White Background */
             --text-main: #000000;       /* Solid Black */
-            --border-line: #000000;     /* Strong Black Lines */
+            --border-line: #000000;     /* Line Borders */
             
-            /* Header & Sidebar Blocks */
-            --header-bg: #000000;
-            --header-text: #ffffff;
+            /* Custom Blocks & Accents */
+            --header-bg: #101c2c;       /* Deep Dark Blue */
+            --header-text: #ffffff;     /* White Text on Blue */
+            --hacker-green: #00ff66;    /* Vibrant Terminal Green */
             
-            /* Dynamic Button Colors (Light Mode) */
-            --btn-solid-bg: #000000;
-            --btn-solid-text: #ffffff;
-            --btn-outline-text: #000000;
+            /* Buttons (Light Mode Default) */
+            --btn-text: #008033;        /* Darker Green for Light Mode Legibility */
+            --btn-bg-hover: #00ff66;
+            --btn-text-hover: #000000;
         }
 
         [data-theme="dark"] {
-            --bg-color: #000000;        /* Pitch Black */
-            --text-main: #ffffff;       /* Pure White */
-            --border-line: #ffffff;     /* Strong White Lines */
+            --bg-color: #000000;        /* Pitch Black Background */
+            --text-main: #ffffff;       /* Pure White Text */
+            --border-line: #ffffff;     /* White Line Borders */
             
-            --header-bg: #ffffff;
-            --header-text: #000000;
-            
-            /* Dynamic Button Colors (Dark Mode) */
-            --btn-solid-bg: #ffffff;
-            --btn-solid-text: #000000;
-            --btn-outline-text: #ffffff;
+            /* Buttons (Dark Mode) */
+            --btn-text: #00ff66;        /* Bright Green */
+            --btn-bg-hover: #00ff66;
+            --btn-text-hover: #000000;
         }
 
         * {
@@ -48,11 +46,11 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            transition: background-color 0.15s, color 0.15s;
+            transition: background-color 0.25s, color 0.25s;
             overflow-x: hidden;
         }
 
-        /* 1. TOP HEADER RECTANGLE */
+        /* 1. TOP DEEP BLUE HEADER RECTANGLE */
         .identity-header {
             background-color: var(--header-bg);
             color: var(--header-text);
@@ -64,7 +62,6 @@
             justify-content: center;
             align-items: center;
             border-bottom: 2px solid var(--border-line);
-            transition: background-color 0.15s, color 0.15s;
         }
 
         .identity-header h1 {
@@ -79,6 +76,7 @@
             font-size: 0.95rem;
             letter-spacing: 4px;
             text-transform: uppercase;
+            color: var(--hacker-green); /* Accentuated label in terminal green */
         }
 
         /* WORKSPACE MATRIX WINDOW */
@@ -107,7 +105,7 @@
             gap: 14px;
         }
 
-        /* RE-ENGINEERED COMPONENT STYLE INTERACTIVE BUTTONS */
+        /* TERMINAL GREEN COMPONENT BUTTONS */
         .nav-btn-solid, .nav-btn-outline {
             display: flex;
             align-items: center;
@@ -118,18 +116,18 @@
             text-decoration: none;
             cursor: pointer;
             width: 100%;
+            border: 2px solid var(--hacker-green);
             transition: background-color 0.2s, border-color 0.2s;
         }
 
-        /* Solid Type Layout */
+        /* Active/Home State layout */
         .nav-btn-solid {
-            border: 1px solid var(--border-line);
-            background-color: var(--btn-solid-bg);
+            background-color: var(--hacker-green);
         }
 
         .nav-btn-solid span {
-            font-weight: 500; 
-            color: var(--btn-solid-text);
+            font-weight: 600; 
+            color: #000000;
             transition: color 0.2s;
         }
 
@@ -138,30 +136,29 @@
         }
 
         .nav-btn-solid:hover span {
-            color: var(--text-main);
+            color: var(--btn-text);
         }
 
-        /* Outline Type Layout */
+        /* Standard Navigation State Layout */
         .nav-btn-outline {
-            border: 1px solid var(--border-line);
             background-color: transparent;
         }
 
         .nav-btn-outline span {
-            font-weight: 500; 
-            color: var(--btn-outline-text);
+            font-weight: 600; 
+            color: var(--btn-text);
             transition: color 0.2s;
         }
 
         .nav-btn-outline:hover {
-            background-color: var(--btn-solid-bg);
+            background-color: var(--btn-bg-hover);
         }
 
         .nav-btn-outline:hover span {
-            color: var(--btn-solid-text);
+            color: var(--btn-text-hover);
         }
 
-        /* 3. CENTERED CONTENT FRAME (Forced to global absolute page center) */
+        /* 3. CENTERED CONTENT FRAME (Forced to absolute global page middle alignment) */
         .right-content-frame {
             flex: 1;
             padding: 60px;
@@ -172,13 +169,11 @@
             position: relative;
         }
 
-        /* Inner container that aligns mathematically with the header text absolute middle */
         .center-axis-container {
             max-width: 600px;
             width: 100%;
             text-align: center;
-            /* Negative margin offsets the left dock to achieve total viewport symmetry */
-            margin-left: -260px; 
+            margin-left: -260px; /* Counter-balances left dock to keep true middle alignment */
             z-index: 5;
         }
 
@@ -205,49 +200,65 @@
             margin-bottom: 20px;
         }
 
-        /* THEME TOGGLE WRAPPER PANEL */
-        .toggle-panel {
-            padding: 24px;
-            margin-top: auto; /* Pushes theme toggle to the bottom of the navigation dock */
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        /* --- UIverse FROM USER SOURCE STYLE SPECIFICATION --- */
+        .switch-frame-fixed {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
         }
 
-        /* Original customized theme button layouts */
-        .theme-btn-solid, .theme-btn-outline {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            padding: 12px 20px;
-            text-decoration: none;
+        #theme-toggle-button {
+            font-size: 17px;
+            position: relative;
+            display: inline-block;
+            width: 7em;
             cursor: pointer;
-            width: 100%;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
         }
 
-        .theme-btn-solid {
-            border: 1px solid var(--border-line);
-            background-color: var(--btn-solid-bg);
-            color: var(--btn-solid-text);
-        }
-        .theme-btn-solid:hover {
-            background-color: transparent;
-            color: var(--text-main);
+        /* Hide default HTML checkbox */
+        #toggle {
+            opacity: 0;
+            width: 0;
+            height: 0;
         }
 
-        .theme-btn-outline {
-            border: 1px solid var(--border-line);
-            background-color: transparent;
-            color: var(--btn-outline-text);
+        #container,
+        #patches,
+        #stars,
+        #button,
+        #sun,
+        #moon,
+        #cloud {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 0.25s;
         }
-        .theme-btn-outline:hover {
-            background-color: var(--btn-solid-bg);
-            color: var(--btn-solid-text);
+
+        /* night sky background */
+        #toggle:checked + svg #container {
+            fill: #2b4360;
         }
+
+        /* move button to right when checked */
+        #toggle:checked + svg #button {
+            transform: translate(28px, 2.333px);
+        }
+
+        /* show/hide sun and moon based on checkbox state */
+        #sun { opacity: 1; }
+        #toggle:checked + svg #sun { opacity: 0; }
+
+        #moon { opacity: 0; }
+        #toggle:checked + svg #moon { opacity: 1; }
+
+        /* show or hide background items on checkbox state */
+        #cloud { opacity: 1; }
+        #toggle:checked + svg #cloud { opacity: 0; }
+
+        #stars { opacity: 0; }
+        #toggle:checked + svg #stars { opacity: 1; }
+
 
         /* --- MATRIX OVERLAY --- */
         .matrix-stage-overlay {
@@ -277,12 +288,12 @@
         }
 
         .digit {
-            color: #00ff88;
+            color: var(--hacker-green);
             font-family: monospace;
             font-size: 22px;
             font-weight: bold;
             text-align: center;
-            text-shadow: 0 0 8px #00ff88;
+            text-shadow: 0 0 8px var(--hacker-green);
             animation: matrix-fall 1.5s infinite, matrix-flicker 0.5s infinite;
             opacity: 0;
         }
@@ -302,7 +313,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 255, 102, 0.15) 0%, transparent 70%);
             animation: matrix-pulse 1.5s infinite;
         }
 
@@ -330,14 +341,14 @@
                 border-bottom: 2px solid var(--border-line);
             }
             .center-axis-container {
-                margin-left: 0; /* Remove offset on mobile view stacks */
+                margin-left: 0; 
             }
         }
     </style>
 </head>
 <body data-theme="light">
 
-    <!-- 1. IDENTIFICATION HEADER RECTANGLE -->
+    <!-- 1. IDENTIFICATION HEADER RECTANGLE (DARK DEEP BLUE) -->
     <header class="identity-header">
         <h1>Mickael Benlolo</h1>
         <p>AppSec & Pentester</p>
@@ -375,13 +386,6 @@
                     </a>
                 </li>
             </ul>
-
-            <!-- THEME CHOOSER BUTTON SECTION -->
-            <div class="toggle-panel">
-                <button id="themeToggleBtn" class="theme-btn-outline" onclick="toggleTheme()">
-                    Dark Mode
-                </button>
-            </div>
         </nav>
 
         <!-- 3. MAIN CONTENT WINDOW AREA -->
@@ -402,7 +406,7 @@
                 </div>
             </div>
 
-            <!-- VIEWPORT CONTENT TEXT WINDOW (Centered absolute alignment) -->
+            <!-- VIEWPORT CONTENT TEXT WINDOW (Centered absolute alignment with name header) -->
             <div class="center-axis-container">
                 <div class="flowing-text" id="mainDisplay">
                     <h2>Hello.</h2>
@@ -413,6 +417,35 @@
 
         </main>
 
+    </div>
+
+    <!-- 4. FLOATING INTERACTIVE SVG TOGGLE INTERFACE (BOTTOM RIGHT) -->
+    <div class="switch-frame-fixed">
+        <label id="theme-toggle-button" for="toggle">
+            <input type="checkbox" id="toggle" onchange="toggleTheme()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 74 38" width="100%">
+                <g id="components">
+                    <rect height="37.333" width="73.333" rx="18.667" y="0.333" x="0.333" fill="#a3daff" id="container"></rect>
+                    <g transform="translate(4, 4)" id="patches">
+                        <path d="M26.241,23.364 C26.347,23.315 26.459,23.284 26.577,23.277 C27.144,23.245 27.628,22.81 27.659,22.242 C27.691,21.675 27.256,21.192 26.689,21.16 C26.65,21.158 26.611,21.159 26.573,21.162 C25.074,21.289 24.168,20.021 24.168,18.528 C24.168,17.036 25.074,15.767 26.573,15.894 C26.611,15.897 26.65,15.898 26.689,15.896 C27.256,15.864 27.691,15.381 27.659,14.813 C27.628,14.246 27.144,13.811 26.577,13.779 C26.459,13.772 26.347,13.741 26.241,13.692 C25.02,13.124 24.288,11.892 24.288,10.548 C24.288,9.204 25.02,7.971 26.241,7.404 C26.347,7.355 26.459,7.324 26.577,7.317 C27.144,7.285 27.628,6.85 27.659,6.282 C27.691,5.715 27.256,5.231 26.689,5.2 C26.65,5.197 26.611,5.199 26.573,5.202 C24.512,5.376 22.848,3.771 22.848,1.705 C22.848,1.135 22.386,0.673 21.816,0.673 C21.246,0.673 20.784,1.135 20.784,1.705 C20.784,3.771 19.12,5.376 17.059,5.202 C17.021,5.199 16.982,5.197 16.943,5.2 C16.376,5.231 15.941,5.715 15.973,6.282 C16.004,6.85 16.488,7.285 17.055,7.317 C17.173,7.324 17.285,7.355 17.391,7.404 C18.612,7.971 19.344,9.204 19.344,10.548 C19.344,11.892 18.612,13.124 17.391,13.692 C17.285,13.741 17.173,13.772 17.055,13.779 C16.488,13.811 16.004,14.246 15.973,14.813 C15.941,15.381 16.376,15.864 16.943,15.896 C16.982,15.898 17.021,15.897 17.059,15.894 C18.558,15.767 19.464,17.036 19.464,18.528 C19.464,20.021 18.558,21.289 17.059,21.162 C17.021,21.159 16.982,21.158 16.943,21.16 C16.376,21.192 15.941,21.675 15.973,22.242 C16.004,22.81 16.488,23.245 17.055,23.277 C17.173,23.284 17.285,23.315 17.391,23.364 C18.612,23.931 19.344,25.164 19.344,26.508 C19.344,27.852 18.612,29.085 17.391,29.652 C17.285,29.701 17.173,29.732 17.055,29.739 C16.488,29.771 16.004,30.206 15.973,30.774 C15.941,31.341 16.376,31.825 16.943,31.856 C16.982,31.859 17.021,31.861 17.059,31.858 C19.12,31.684 20.784,33.289 20.784,35.355 C20.784,35.925 21.246,36.387 21.816,36.387 C22.386,36.387 22.848,35.925 22.848,35.355 C22.848,33.289 24.512,31.684 26.573,31.858 C26.611,31.861 26.65,31.859 26.689,31.856 C27.256,31.825 27.691,31.341 27.659,30.774 C27.628,30.206 27.144,29.771 26.577,29.739 C26.459,29.732 26.347,29.701 26.241,29.652 C25.02,29.085 24.288,27.852 24.288,26.508 C24.288,25.164 25.02,23.931 26.241,23.364 Z" fill="#e4f4ff" id="cloud"></path>
+                        <g fill="#ffffff" id="stars">
+                            <path d="M 5.408 5.923 L 5.908 6.551 L 6.643 6.183 L 6.223 5.485 L 6.723 4.857 L 5.988 5.225 Z"></path>
+                            <path d="M 14.152 2.813 L 14.398 3.524 L 15.111 3.239 L 14.619 2.628 L 14.865 1.917 L 14.152 2.202 Z"></path>
+                            <path d="M 12.822 17.513 L 13.518 17.915 L 13.978 17.26 L 13.345 16.782 L 14.041 17.184 L 14.501 16.529 Z"></path>
+                            <path d="M 9.178 28.981 L 9.324 29.781 L 10.07 29.497 L 9.531 28.877 L 9.677 29.677 L 10.423 29.393 Z"></path>
+                            <path d="M 2.451 22.011 L 3.091 22.484 L 3.606 21.815 L 3.018 21.265 L 3.658 21.738 L 4.173 21.069 Z"></path>
+                        </g>
+                    </g>
+                    <g transform="translate(2, 2)" id="button">
+                        <circle r="16.667" cy="16.667" cx="16.667" fill="#eaeaea" id="leather"></circle>
+                        <!-- Light Mode Sun -->
+                        <path d="M16.667,11.667 C13.906,11.667 11.667,13.906 11.667,16.667 C11.667,19.428 13.906,21.667 16.667,21.667 C19.428,21.667 21.667,19.428 21.667,16.667 C21.667,13.906 19.428,11.667 16.667,11.667 Z M16.667,7.667 C17.219,7.667 17.667,7.219 17.667,6.667 L17.667,4.667 C17.667,4.115 17.219,3.667 16.667,3.667 C16.115,3.667 15.667,4.115 15.667,4.667 L15.667,6.667 C15.667,7.219 16.115,7.667 16.667,7.667 Z M16.667,25.667 C16.115,25.667 15.667,26.115 15.667,26.667 L15.667,28.667 C15.667,29.115 16.115,29.667 16.667,29.667 C17.219,29.667 17.667,29.115 17.667,28.667 L17.667,26.667 C17.667,26.115 17.219,25.667 16.667,25.667 Z M9.596,10.657 C9.986,11.047 10.62,11.047 11.01,10.657 C11.401,10.266 11.401,9.633 11.01,9.243 L9.596,7.828 C9.205,7.438 8.572,7.438 8.182,7.828 C7.792,8.219 7.792,8.852 8.182,9.243 L9.596,10.657 Z M22.325,23.384 C21.934,22.993 21.301,22.993 20.911,23.384 C20.52,23.774 20.52,24.408 20.911,24.798 L22.325,26.213 C22.715,26.603 23.349,26.603 23.739,26.213 C24.13,25.822 24.13,25.189 23.739,24.798 L22.325,23.384 Z M7.667,16.667 C7.667,16.115 7.219,15.667 6.667,15.667 L4.667,15.667 C4.115,15.667 3.667,16.115 3.667,16.667 C3.667,17.219 4.115,17.667 4.667,17.667 L6.667,17.667 C7.219,17.667 7.667,17.219 7.667,16.667 Z M25.667,16.667 C25.667,17.219 26.115,17.667 26.667,17.667 L28.667,17.667 C29.115,17.667 29.667,17.219 29.667,16.667 C29.667,16.115 29.115,15.667 28.667,15.667 L26.667,15.667 C26.115,15.667 25.667,16.115 25.667,16.667 Z M10.657,23.739 C11.047,23.349 11.047,22.715 10.657,22.325 C10.266,21.934 9.633,21.934 9.243,22.325 L7.828,23.739 C7.438,24.13 7.438,24.763 7.828,25.154 C8.219,25.544 8.852,25.544 9.243,25.154 L10.657,23.739 Z M23.384,11.01 C23.774,10.62 23.774,9.986 23.384,9.596 L21.969,8.182 C21.579,7.792 20.946,7.792 20.556,8.182 C20.165,8.572 20.165,9.205 20.556,9.596 L21.969,11.01 C22.349,11.401 22.993,11.401 23.384,11.01 Z" fill="#ffd600" id="sun"></path>
+                        <!-- Dark Mode Moon -->
+                        <path d="M21.667,16.667 C21.667,21.665 17.665,25.667 12.667,25.667 C10.964,25.667 9.387,25.197 8.043,24.385 C10.024,26.438 12.82,27.667 15.917,27.667 C22.02,27.667 26.967,22.72 26.967,16.617 C26.967,13.235 25.441,10.21 23.037,8.211 C22.155,10.428 21.667,12.868 21.667,16.667 Z" fill="#b0bec5" id="moon"></path>
+                    </g>
+                </g>
+            </svg>
+        </label>
     </div>
 
     <script>
@@ -442,19 +475,15 @@
             }, 850); 
         }
 
+        // Logic bound to the state of the checkbox input element
         function toggleTheme() {
             const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const toggleBtn = document.getElementById('themeToggleBtn');
+            const toggleInput = document.getElementById('toggle');
             
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                toggleBtn.textContent = 'Dark Mode';
-                toggleBtn.className = 'theme-btn-outline';
-            } else {
+            if (toggleInput.checked) {
                 body.setAttribute('data-theme', 'dark');
-                toggleBtn.textContent = 'Light Mode';
-                toggleBtn.className = 'theme-btn-solid';
+            } else {
+                body.setAttribute('data-theme', 'light');
             }
         }
     </script>
