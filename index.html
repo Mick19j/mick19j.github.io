@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mickael | AppSec & Pentester Portfolio</title>
+    <style>
+        /* Base Themes & Colors */
+        :root {
+            --bg-color: #0d1117;       /* Dark GitHub style background */
+            --sidebar-color: #161b22;  /* Slightly lighter dark for sidebar */
+            --accent-color: #238636;   /* Green block color for active modules (Change this hex to change color!) */
+            --text-main: #c9d1d9;      /* Clear readable text */
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Left Sidebar Layout */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-color);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .profile-header {
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-header h1 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .profile-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Sidebar Navigation Modules */
+        .nav-modules {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .module-btn {
+            width: 100%;
+            padding: 14px 18px;
+            background-color: #21262d;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .module-btn:hover {
+            background-color: #30363d;
+            border-color: var(--text-muted);
+        }
+
+        /* Active Module Styling (The colored block you chose) */
+        .module-btn.active {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3);
+        }
+
+        /* Right Content Area Layout */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background-color: var(--bg-color);
+        }
+
+        .tab-content {
+            display: none; /* Hidden by default */
+            max-width: 800px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block; /* Show active tab */
+        }
+
+        /* Content Styling */
+        h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: #e6edf3;
+        }
+
+        .card {
+            background: #161b22;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            color: #58a6ff;
+            margin-bottom: 8px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar">
+        <div class="profile-header">
+            <h1>Mickael</h1>
+            <p>AppSec & Penetration Tester</p>
+        </div>
+
+        <ul class="nav-modules">
+            <li><button class="module-btn active" onclick="switchTab(event, 'who-am-i')">Who am I?</button></li>
+            <li><button class="module-btn" onclick="switchTab(event, 'projects')">Projects</button></li>
+            <li><button class="module-btn" onclick="switchTab(event, 'attacks')">Attacks</button></li>
+            <li><button class="module-btn" onclick="switchTab(event, 'learning')">Learning</button></li>
+        </ul>
+    </div>
+
+    <!-- RIGHT CONTENT WINDOW -->
+    <div class="content-area">
+
+        <!-- TAB: WHO AM I -->
+        <div id="who-am-i" class="tab-content active">
+            <h2>Who am I?</h2>
+            <p>Welcome to my professional space. I am an offensive security professional specializing in Application Security (AppSec) and penetration testing.</p>
+            <p>I combine defensive architecture logic with offensive testing paradigms to ensure systems are secure against modern threat models, focusing heavily on Linux systems, Active Directory design, and web infrastructure flaws.</p>
+        </div>
+
+        <!-- TAB: PROJECTS -->
+        <div id="projects" class="tab-content">
+            <h2>Projects</h2>
+            <div class="card">
+                <h3>Active Directory Enterprise Lab</h3>
+                <p>Designed and provisioned a multi-forest enterprise lab locally to simulate complex network components and defensive posture auditing tools.</p>
+            </div>
+            <div class="card">
+                <h3>Linux Security Hardening Script</h3>
+                <p>An automated script engineered to parse system states and apply strict configuration guidelines on remote servers.</p>
+            </div>
+        </div>
+
+        <!-- TAB: ATTACKS -->
+        <div id="attacks" class="tab-content">
+            <h2>Attacks & Exploits</h2>
+            <div class="card">
+                <h3>Infrastructure & AD Compromise Walkthrough</h3>
+                <p>Anonymized documentation demonstrating privilege escalation vectors and credential harvesting logic within lab environments.</p>
+            </div>
+            <div class="card">
+                <h3>Web Application Logical Flaws</h3>
+                <p>Analysis of critical flaws found during assessments, emphasizing source code level root-cause and remediation techniques.</p>
+            </div>
+        </div>
+
+        <!-- TAB: LEARNING -->
+        <div id="learning" class="tab-content">
+            <h2>Learning & Research Track</h2>
+            <p>Currently researching advanced exploitation tracking, specialized source code parsing frameworks, and modern detection engineering matrices.</p>
+        </div>
+
+    </div>
+
+    <!-- TAB SWITCHING ENGINE -->
+    <script>
+        function switchTab(event, tabId) {
+            // Remove active status from all button modules
+            const buttons = document.querySelectorAll('.module-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Hide all content blocks
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Add active status to clicked module and show its content
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
