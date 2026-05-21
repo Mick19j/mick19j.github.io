@@ -8,7 +8,7 @@
         /* Matrix-Infused Deep Blue & Terminal Green Theme */
         :root {
             --bg-color: #ffffff;        /* Pure White Background */
-            --text-main: #000000;       /* Solid Black */
+            --text-main: #000000;       /* Solid Black Text */
             --border-line: #000000;     /* Line Borders */
             
             /* Custom Blocks & Accents */
@@ -16,10 +16,9 @@
             --header-text: #ffffff;     /* White Text on Blue */
             --hacker-green: #00ff66;    /* Vibrant Terminal Green */
             
-            /* Buttons (Light Mode Default) */
-            --btn-text: #008033;        /* Darker Green for Light Mode Legibility */
-            --btn-bg-hover: #00ff66;
-            --btn-text-hover: #000000;
+            /* Button Text (Light Mode) */
+            --btn-text-default: #000000;
+            --btn-text-hover: #ffffff;
         }
 
         [data-theme="dark"] {
@@ -27,9 +26,8 @@
             --text-main: #ffffff;       /* Pure White Text */
             --border-line: #ffffff;     /* White Line Borders */
             
-            /* Buttons (Dark Mode) */
-            --btn-text: #00ff66;        /* Bright Green */
-            --btn-bg-hover: #00ff66;
+            /* Button Text (Dark Mode) */
+            --btn-text-default: #ffffff;
             --btn-text-hover: #000000;
         }
 
@@ -76,7 +74,7 @@
             font-size: 0.95rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--hacker-green); /* Accentuated label in terminal green */
+            color: #ffffff; /* Reverted strictly back to pure white */
         }
 
         /* WORKSPACE MATRIX WINDOW */
@@ -127,7 +125,7 @@
 
         .nav-btn-solid span {
             font-weight: 600; 
-            color: #000000;
+            color: #000000; /* Dark text over solid green default background */
             transition: color 0.2s;
         }
 
@@ -136,7 +134,7 @@
         }
 
         .nav-btn-solid:hover span {
-            color: var(--btn-text);
+            color: var(--text-main); /* Flips cleanly to main theme text color */
         }
 
         /* Standard Navigation State Layout */
@@ -146,16 +144,16 @@
 
         .nav-btn-outline span {
             font-weight: 600; 
-            color: var(--btn-text);
+            color: var(--btn-text-default); /* Keeps text in theme standard color */
             transition: color 0.2s;
         }
 
         .nav-btn-outline:hover {
-            background-color: var(--btn-bg-hover);
+            background-color: var(--hacker-green);
         }
 
         .nav-btn-outline:hover span {
-            color: var(--btn-text-hover);
+            color: var(--btn-text-hover); /* Inverts text clean over green splash */
         }
 
         /* 3. CENTERED CONTENT FRAME (Forced to absolute global page middle alignment) */
@@ -475,7 +473,6 @@
             }, 850); 
         }
 
-        // Logic bound to the state of the checkbox input element
         function toggleTheme() {
             const body = document.body;
             const toggleInput = document.getElementById('toggle');
