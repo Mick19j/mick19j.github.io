@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mickael Benlolo | Portfolio & Blog</title>
     <style>
-        /* Color Themes based on Minimal Security Portfolio styles */
+        /* Sand / Beige Premium Color Theme */
         :root {
-            --bg-color: #ffffff;
-            --text-main: #111111;
-            --text-muted: #666666;
-            --accent-link: #4f46e5; /* Indigo-600 */
-            --border-line: #eaeaea;
-            --card-bg: #fafafa;
-            --btn-bg: #4f46e5;
-            --btn-text: #ffffff;
-            --btn-border: #4f46e5;
+            --bg-color: #fdfbf7;        /* Warm alabaster/white */
+            --text-main: #2d2a26;       /* Soft dark charcoal */
+            --text-muted: #7a756e;      /* Muted earth tone */
+            --border-line: #e8e2d5;     /* Soft sand border */
+            
+            /* Sand Button Palette */
+            --sand-primary: #c2b29a;    /* Classic solid sand */
+            --sand-hover: #a89981;      /* Deeper sand for hovers */
+            --sand-text: #ffffff;
         }
 
         [data-theme="dark"] {
-            --bg-color: #0b0f17;
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --accent-link: #818cf8; /* Lighter indigo for dark mode */
-            --border-line: #22252a;
-            --card-bg: #131822;
-            --btn-bg: #6366f1; /* Indigo-500 for better visibility in dark mode */
-            --btn-text: #ffffff;
-            --btn-border: #6366f1;
+            --bg-color: #121110;        /* Deep warm dark */
+            --text-main: #f4f1eb;       /* Off-white warm text */
+            --text-muted: #968f85;
+            --border-line: #2d2a27;
+            
+            /* Dark mode sand adjustments */
+            --sand-primary: #ddccb3;    /* Brighter sand for dark backgrounds */
+            --sand-hover: #c2b29a;
+            --sand-text: #121110;
         }
 
         * {
@@ -45,7 +45,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Responsive Layout Container */
+        /* Layout Structure */
         .container {
             display: flex;
             width: 100%;
@@ -55,9 +55,9 @@
             gap: 80px;
         }
 
-        /* LEFT NAVIGATION COLUMN (Stays fixed/sticky) */
+        /* LEFT NAVIGATION COLUMN */
         .left-column {
-            width: 220px;
+            width: 240px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -83,32 +83,69 @@
             list-style: none;
             display: flex;
             flex-direction: column;
+            gap: 12px; /* Margins for button spacing */
+        }
+
+        /* THE CUSTOM INTERACTIVE SAND BUTTONS */
+        .nav-btn-solid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             gap: 16px;
-        }
-
-        .nav-tab {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-            text-align: left;
+            border-radius: 8px; /* rounded-lg */
+            border: 1px solid var(--sand-primary);
+            background-color: var(--sand-primary);
+            padding: 12px 20px; /* px-5 py-3 */
+            text-decoration: none;
+            transition: background-color 0.25s, border-color 0.25s;
             cursor: pointer;
-            padding: 4px 0;
-            transition: color 0.2s ease;
-            width: fit-content;
+            width: 100%;
         }
 
-        .nav-tab:hover {
-            color: var(--text-main);
+        .nav-btn-solid span {
+            font-weight: 500;
+            color: var(--sand-text);
+            transition: color 0.25s;
         }
 
-        /* Active link indicator */
-        .nav-tab.active {
-            color: var(--text-main);
-            font-weight: 700;
-            border-bottom: 2px solid var(--text-main);
+        .nav-btn-solid:hover {
+            background-color: transparent;
+            border-color: var(--sand-primary);
         }
+
+        .nav-btn-solid:hover span {
+            color: var(--sand-primary);
+        }
+
+        .nav-btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            border-radius: 8px; /* rounded-lg */
+            border: 1px solid var(--sand-primary);
+            background-color: transparent;
+            padding: 12px 20px; /* px-5 py-3 */
+            text-decoration: none;
+            transition: background-color 0.25s, border-color 0.25s;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .nav-btn-outline span {
+            font-weight: 500;
+            color: var(--sand-primary);
+            transition: color 0.25s;
+        }
+
+        .nav-btn-outline:hover {
+            background-color: var(--sand-primary);
+        }
+
+        .nav-btn-outline:hover span {
+            color: var(--sand-text);
+        }
+
 
         /* RIGHT CONTENT AREA */
         .right-column {
@@ -116,16 +153,6 @@
             max-width: 700px;
         }
 
-        .tab-content {
-            display: none; /* Hidden unless active */
-            animation: fadeIn 0.4s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Typography & Components inside tabs */
         h2 {
             font-size: 1.6rem;
             font-weight: 700;
@@ -137,93 +164,14 @@
             font-size: 1rem;
             line-height: 1.7;
             margin-bottom: 20px;
-            color: var(--text-main);
         }
 
-        .post-item, .cert-item {
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border-line);
-        }
-
-        .post-item:last-child, .cert-item:last-child {
-            border-bottom: none;
-        }
-
-        .item-meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        .item-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--text-main);
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 6px;
-            transition: color 0.2s;
-        }
-
-        .item-title:hover {
-            color: var(--accent-link);
-        }
-
-        .contact-link {
-            color: var(--accent-link);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        /* CUSTOM HAND-STYLED HOVER BUTTONS */
-        .btn-solid, .btn-outline {
-            display: inline-block;
-            border-radius: 2px; /* rounded-sm */
-            padding: 12px 32px; /* px-8 py-3 */
-            font-size: 0.875rem; /* text-sm */
-            font-weight: 500; /* font-medium */
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-            margin-top: 12px;
-        }
-
-        /* Solid Style Button */
-        .btn-solid {
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            border: 1px solid var(--btn-border);
-        }
-
-        .btn-solid:hover {
-            transform: scale(1.1); /* hover:scale-110 */
-            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4); /* hover:shadow-xl */
-        }
-
-        /* Outline Style Button */
-        .btn-outline {
-            background-color: transparent;
-            color: var(--accent-link);
-            border: 1px solid currentColor; /* border-current */
-        }
-
-        .btn-outline:hover {
-            transform: scale(1.1); /* hover:scale-110 */
-            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2); /* hover:shadow-xl */
-        }
-
-        .button-group {
-            display: flex;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        /* FLOATING THEME TOGGLE BUTTON (MOVED TO RIGHT) */
+        /* FLOATING THEME TOGGLE */
         .theme-toggle {
             position: fixed;
             bottom: 40px;
-            right: 40px; /* Moved to right side */
-            background-color: var(--card-bg);
+            right: 40px;
+            background-color: var(--bg-color);
             border: 1px solid var(--border-line);
             color: var(--text-main);
             padding: 10px 14px;
@@ -231,11 +179,8 @@
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
             z-index: 1000;
         }
 
@@ -243,13 +188,6 @@
             transform: translateY(-2px);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive design for smaller screens/phones */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -259,19 +197,10 @@
             .left-column {
                 width: 100%;
             }
-            .nav-links {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-            .theme-toggle {
-                bottom: 24px;
-                right: 24px;
-            }
         }
     </style>
 </head>
-<body data-theme="light"> <!-- Set to Light Mode initially -->
+<body data-theme="light">
 
     <div class="container">
         
@@ -282,85 +211,43 @@
                 <p>AppSec & Pentester</p>
             </div>
             
+            <!-- Links now point directly to future separate files -->
             <ul class="nav-links">
-                <li><button class="nav-tab active" onclick="switchTab(event, 'home')">Home</button></li>
-                <li><button class="nav-tab" onclick="switchTab(event, 'about')">About Me</button></li>
-                <li><button class="nav-tab" onclick="switchTab(event, 'blog')">Blog</button></li>
-                <li><button class="nav-tab" onclick="switchTab(event, 'certificates')">Certificates</button></li>
-                <li><button class="nav-tab" onclick="switchTab(event, 'contact')">Contact</button></li>
+                <li>
+                    <a class="nav-btn-solid" href="index.html">
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-btn-outline" href="about.html">
+                        <span>About Me</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-btn-outline" href="blog.html">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-btn-outline" href="certificates.html">
+                        <span>Certificates</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-btn-outline" href="contact.html">
+                        <span>Contact</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
-        <!-- RIGHT-HAND CONTENT WINDOW -->
+        <!-- RIGHT-HAND CONTENT WINDOW (HOME ONLY) -->
         <div class="right-column">
-
-            <!-- TAB: HOME -->
-            <div id="home" class="tab-content active">
-                <h2>Hello.</h2>
-                <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
-                <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
-            </div>
-
-            <!-- TAB: ABOUT ME -->
-            <div id="about" class="tab-content">
-                <h2>About Me</h2>
-                <p>I focus on bridge engineering between offensive exploitation and secure development lifecycles. My core operational environments include comprehensive Linux deployment mapping, web vulnerability evaluation, and Active Directory lab modeling.</p>
-                <p>I spend my research blocks diving deep into logic bypass vectors and documenting structural remediation methodologies for development teams.</p>
-            </div>
-
-            <!-- TAB: BLOG -->
-            <div id="blog" class="tab-content">
-                <h2>Blog & Research</h2>
-                
-                <div class="post-item">
-                    <div class="item-meta">May 2026 • Infrastructure</div>
-                    <a href="#" class="item-title">Simulating Enterprise Path Escalations in AD Labs</a>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 4px;">An architectural walkthrough on configuring internal constraints to evaluate NTLM security states.</p>
-                </div>
-
-                <div class="post-item">
-                    <div class="item-meta">March 2026 • AppSec</div>
-                    <a href="#" class="item-title">Breaking Logic: Parameter Discrepancies in Production Apps</a>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 4px;">An analysis of backend parameter parsing vulnerabilities and how validation checks fail under stress.</p>
-                </div>
-            </div>
-
-            <!-- TAB: CERTIFICATES -->
-            <div id="certificates" class="tab-content">
-                <h2>Certificates & Verifications</h2>
-                
-                <div class="cert-item">
-                    <div class="item-meta">Offensive Security</div>
-                    <div class="item-title">OSCP — Offensive Security Certified Professional</div>
-                    <div>
-                        <!-- Embedded Solid Button Style -->
-                        <a class="btn-solid" href="#" onclick="alert('Link your certificate verification PDF or URL here!')">Verify OSCP</a>
-                    </div>
-                </div>
-
-                <div class="cert-item">
-                    <div class="item-meta">Application Security</div>
-                    <div class="item-title">Certified AppSec Practitioner</div>
-                    <div>
-                        <!-- Embedded Outline Button Style -->
-                        <a class="btn-outline" href="#" onclick="alert('Link your certificate verification PDF or URL here!')">View Badge</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB: CONTACT -->
-            <div id="contact" class="tab-content">
-                <h2>Contact</h2>
-                <p>If you're looking to discuss security engineering, threat assessments, or professional opportunities, feel free to download my resume or drop me an email:</p>
-                
-                <div class="button-group">
-                    <!-- Integrated your requested button examples here -->
-                    <a class="btn-solid" href="mailto:your.email@example.com">Email Me</a>
-                    <a class="btn-outline" href="#">Download CV</a>
-                </div>
-            </div>
-
+            <h2>Hello.</h2>
+            <p>I am an Application Security engineer and Penetration Tester. I focus on parsing application design flaws, evaluating code security, and testing Linux environments and infrastructure models.</p>
+            <p>This is my personal repository where I map out my findings, ongoing security tracks, and structural write-ups.</p>
         </div>
+
     </div>
 
     <!-- FLOATING THEME TOGGLE BUTTON -->
@@ -368,25 +255,7 @@
         🌓 <span id="theme-text">Dark Mode</span>
     </button>
 
-    <!-- ENGINE FOR TAB SWITCHING & THEME TOGGLING -->
     <script>
-        // Tab Engine
-        function switchTab(event, tabId) {
-            const tabs = document.querySelectorAll('.nav-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-
-            event.currentTarget.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-            
-            if (window.innerWidth <= 768) {
-                document.getElementById(tabId).scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Theme Engine
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
