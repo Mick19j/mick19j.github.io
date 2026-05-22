@@ -105,11 +105,19 @@
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
             const target = this.getAttribute('href');
-            // Only show loader if we are going to a different file
-            if (target && target !== window.location.pathname.split("/").pop()) {
+            const currentPath = window.location.pathname.split("/").pop();
+            
+            // 1. Don't trigger if the link is just '#'
+            // 2. Don't trigger if target is the current page (e.g., clicking Home while on Home)
+            // 3. Handle 'index.html' vs root ('')
+            const isSamePage = (target === currentPath) || (target === 'index.html' && currentPath === '');
+            
+            if (target && target !== '#' && !isSamePage) {
                 e.preventDefault();
                 document.getElementById('loader-overlay').style.display = 'flex';
-                setTimeout(() => { window.location.href = target; }, 1200);
+                setTimeout(() => { 
+                    window.location.href = target; 
+                }, 1200);
             }
         });
     });
